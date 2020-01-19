@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="nao:sec-ontology-visualization" xmlns="http://docbook.org/ns/docbook">
+	<title>Ontology Visualization</title>
+	
+	
+	<figure id="nao:fig-nao-ontology-visualization">
+	<ulink url="nao-ontology-visualization.png">
+		<mediaobject>
+			<imageobject role="html">
+				<imagedata fileref="nao-ontology-visualization.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</figure>
+	
+</section>
+
+<section id="nao:sec-introduction" xmlns="http://docbook.org/ns/docbook">
+    <title>Introduction</title>
+
+    <para>The meaning of the term annotation is highly contextual. Depending
+    on the context, anything or nothing can be considered as annotation within
+    a data set (or named graph). On the social semantic desktop, the average
+    user is frequently seen creating representations of objects on their
+    desktop, while the more experienced user is also frequently creating
+    representations of concepts and their relationships. Sharing and creating
+    relationships between all these resources across multiple desktops is what
+    makes a user's desktop social and semantic. Within this context, we
+    consider annotation to be anything that goes further than creating
+    resources and defining their elementary relationships. A user can create
+    an instance of a 'Person', and provide values for all the elementary
+    properties that an instance of 'Person' can have. The user can then go one
+    step ahead and annotate the resources with more information, of a textual
+    (e.g. custom human-readable descriptions) or non-textual (e.g. links to
+    related resources) nature. In a typical scenario there may be a number of
+    domain-centric properties for the classes 'Person' (e.g. name, address,
+    knows etc.) and 'Document' (e.g. author, title etc.). Via vocabulary in
+    the annotation ontology the user can provide personalized, user-friendly
+    labels and descriptions for a resource, as well as other things like tags
+    and ratings. Generic relationships may exist between resources across
+    multiple domains, and making these relationships explicit would be of
+    great benefit for the user. For example, a user wants to state that a
+    'Document' is about some instance of 'Person'. This relationship is too
+    general to be applied at the domain ontology level, since such a
+    relationship may exist between other concepts in other domains e.g.
+    between 'Conference' and 'Technology'. Vocabulary that is able to express
+    these generic relationships are therefore provided by the annotation
+    ontology. Although this information is optional and does not reflect the
+    elementary nature of a 'Document', it contributes to improved data
+    unification and eases user search.</para>
+
+    <para>We model annotation via properties, rather than classes, since we
+    believe that annotation is a relationship and not a concept. This was also
+    the idea for the rdfs:label and rdfs:comment properties in the RDFS
+    vocabulary, which we consider as textual annotation. These properties are
+    in fact included in our specifications, especially since in the context of
+    this ontology and that of the social semantic desktop they have a slightly
+    different meaning. Generic annotation is represented at its highest level
+    with the abstract nao:annotation property. Although it is not meant to be
+    used, it is the superproperty of many other annotation properties in this
+    ontology. Vocabulary for generic annotation is introduced in <xref
+    linkend="nao:sec-generic-annotation-vocabulary" />.</para>
+
+    <para>Graph Metadata is also a form of annotation, where instead of
+    annotating general resources, one annotates Named Graphs. Therefore graph
+    metadata properties can be modelled under the general annotation property
+    <xref linkend="nao:annotation" />, where the resource being annotated is a
+    graph role (instance of <xref linkend="nrl:Data" />) and the annotations
+    are provided via the graph metadata properties. The major difference is
+    that while generic annotation can be stored within any graph the user is
+    working with (e.g. the graph where the annotated resource is defined),
+    metadata about a graph should always be stored outside that graph, in a
+    separate special named graph that is aptly represented in <xref
+    linkend="nrl" /> by <xref linkend="nrl:GraphMetadata" />. Graph Metadata
+    Vocabulary is introduced in <xref
+    linkend="nao:sec-graph-metadata-vocabulary" />.</para>
+  </section>
+
+  <section id="nao:sec-generic-annotation-vocabulary" xmlns="http://docbook.org/ns/docbook">
+    <title>Generic Annotation Vocabulary</title>
+
+    <para>In this section we introduce vocabulary that serves generic
+    annotation, i.e., vocabulary that models general, common relationships
+    between things. <xref linkend="nao:sec-basic-annotation" /> presents the
+    basic annotation vocabulary. All other vocabulary in the annotation
+    ontology will require or derive from these basic terms. <xref
+    linkend="nao:sec-more-specific-annotation" /> introduces richer annotation
+    relationships that derive from the basic annotation properties presented
+    in <xref linkend="nao:sec-basic-annotation" />. In <xref
+    linkend="nao:sec-tagging-as-annotation" /> we discuss how we also model
+    tagging as a form of annotation and finally in <xref
+    linkend="nao:sec-generic-annotation-vocabulary" /> we present a concise
+    example of how the vocabulary presented in this section can be
+    employed.</para>
+
+    <section id="nao:sec-basic-annotation" xmlns="http://docbook.org/ns/docbook">
+      <title>Basic Annotation</title>
+
+      <para>The most basic annotation property is nao:annotation, which simply
+      defines a descriptive property for a resource. Given that an
+      annotation's nature can be textual or non-textual (i.e. semantic
+      annotation pointing to a resource), the range of this abstract
+      high-level property is left undefined. Specific subproperties can have
+      richer semantics (e.g. symmetric properties), but in order to abstract
+      over all annotation properties, no such semantics are defined for <xref
+      linkend="nao:annotation" />.</para>
+
+      <para>rdfs:label and rdfs:comment are also (indirectly) considered as
+      part of our annotation ontology, as they provide textual annotations for
+      a resource. Although we do not define them as being subproperties of
+      nao:annotation, we also include them in these specifications, in order
+      to define their meaning in the context of the social semantic
+      desktop.</para>
+
+      <para>These and other annotation properties and required classes are
+      specified below. The annotation properties defined in this section are
+      also illustrated in the figure below.</para>
+
+	<figure id="nao:basic-annotations" xreflabel="Figure 1">
+	      	<mediaobject>
+		<imageobject role="html">
+		  <imagedata fileref="nao-basic-annotations.png" />
+		</imageobject>
+		<caption>Basic annotation properties</caption>
+	      	</mediaobject>
+      </figure>
+
+      <variablelist>
+        <varlistentry>
+          <term>nao:annotation</term>
+
+          <listitem>
+            <para>An abstract property representing a general annotation for a
+            resource. Given its abstract nature and its undefined range, this
+            property is not meant to be used directly.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>rdfs:label</term>
+
+          <listitem>
+            <para>We consider this RDFS property as part of our annotation
+            ontology, since it provides a textual annotation which relates a
+            resource to a literal. In the context of the social semantic
+            desktop this property provides technical labels for a resource,
+            i.e, a non-user customizable label that is not meant to be seen by
+            the user. User-customizable labels are possible via the use of our
+            own sub-properties <xref linkend="nao:prefLabel" /> and <xref
+            linkend="nao:altLabel" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>rdfs:comment</term>
+
+          <listitem>
+            <para>This RDFS property is also considered as part of our
+            annotation ontology, since it provides a textual annotation which
+            relates a resource to a literal. In the context of the social
+            semantic desktop, this property provides technical descriptions
+            for a resource. Non-technical, custom user descriptions can be
+            provided by our own subproperty, <xref
+            linkend="nao:description" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:hasSymbol</term>
+
+          <listitem>
+            <para>A resource can be annotated with an instance of <xref
+            linkend="nao:Symbol" /> via subproperties of this abstract
+            property, <xref linkend="nao:prefSymbol" /> and <xref
+            linkend="nao:altSymbol" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:rating</term>
+
+          <listitem>
+            <para>Users can rate a resource via subproperties of this
+            property, which is not meant to be used directly. Specific
+            subproperties can extend it and be used to rate resources, e.g. an
+            audio file. The range of this property is undefined. Numeric
+            ratings can be assigned via <xref linkend="nao:numericRating" />
+            (maximum cardinality 1). If other kinds of ratings are needed,
+            this property can arbitrarily and easily extend be extended (e.g.
+            with a property that has as range a class for which a number of
+            instances can be enumerated).</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:identifier</term>
+
+          <listitem>
+            <para>This property enables further types of identifiers for a
+            resource, apart from its standard URI. The property itself is not
+            meant to be directly used since it is an abstract property and
+            does not have a defined range. The annotation ontology provides a
+            subproperty for this property, <xref
+            linkend="nao:personalIdentifier" />. Although this property is not
+            applied any form of restriction, all its subproperties, including
+            <xref linkend="nao:personalIdentifier" />, are meant to be inverse
+            functional.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:Symbol</term>
+
+          <listitem>
+            <para>This class represents a symbol, which can be an icon or an
+            image for example, that is used to annotate a resource. Resources
+            can be annotated with a standard graphical symbol via the
+            subproperties of <xref linkend="nao:hasSymbol" />, <xref
+            linkend="nao:prefSymbol" /> and <xref linkend="nao:altSymbol" />.
+            Any such graphical symbol that is in this way used to annotate a
+            resource automatically becomes an instance of this class.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:Tag</term>
+
+          <listitem>
+            <para>This class is useful for modelling conventional tagging
+            practices. The user can tag resources in conventional ways,
+            automatically creating an instance of this tag, which is then
+            related to the annotated resource via the <xref
+            linkend="nao:hasTag" />. For more on tagging as annotation see
+            <xref linkend="nao:sec-tagging-as-annotation" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:Party</term>
+
+          <listitem>
+            <para>Annotations are provided by an individual or a group of
+            individuals. Some annotations are contained in a separate named
+            graph whose role is to provide annotations about another named
+            graph (e.g. graph metadata for a graph, See <xref
+            linkend="nao:sec-graph-metadata-vocabulary" />). In such cases it
+            is useful to state the contributor(s) for the set of annotations.
+            This class is provided to represent a party who created such a set
+            of annotations, where a party can be either one individual or a
+            group of individuals (e.g. an organization). Once a user or an
+            group provides these annotations, they automatically become an
+            instance of this class.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section id="nao:sec-more-specific-annotation" xmlns="http://docbook.org/ns/docbook">
+      <title>More Specific Annotation</title>
+
+      <para>The Annotation Ontology provides more specific vocabulary that
+      extends the description power of the basic annotation vocabulary
+      presented in the previous section. Vocabulary in this category consists
+      solely of properties which extend properties given in <xref
+      linkend="nao:sec-basic-annotation" />. An overview of these properties
+      is illustrated in <xref linkend="nao:lower-level" />. The specifications for this
+      vocabulary are given below.</para>
+
+	<figure id="nao:lower-level" xreflabel="Figure 2">
+		<mediaobject>
+		  <imageobject>
+		    <imagedata fileref="nao-lower-level.png" scalefit="1" />
+		  </imageobject>
+		  <caption>Figure 2. Basic annotation properties</caption>
+		</mediaobject>
+	</figure>
+
+
+      <variablelist>
+        <varlistentry>
+          <term>nao:isRelated</term>
+
+          <listitem>
+            <para>This property defines a symmetric relation between any two
+            resources. A subproperty of <xref linkend="nao:annotation" />, one
+            can use this property to annotate a resource with pointers to
+            related resources. For example, a blog entry for an event may be
+            linked to an image of the same event via this property. In order
+            for this property to be used legally, the relationship must be
+            symmetric.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:hasTopic</term>
+
+          <listitem>
+            <para>A subproperty of <xref linkend="nao:isRelated" />, this
+            property does not inherit its symmetric nature. It further defines
+            the relationship given by its superproperty, stating that a
+            resource is about some concept. Instead, this vocabulary provides
+            an inverse property for this property, <xref
+            linkend="nao:isTopicOf" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:isTopicOf</term>
+
+          <listitem>
+            <para>This property is also a subproperty of <xref
+            linkend="nao:isRelated" /> and is the inverse property of <xref
+            linkend="nao:hasTopic" />. It is used to create a relationship
+            between two resources, where the subject resource is said to be
+            the topic of the object. It is not a symmetric property.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:hasTag</term>
+
+          <listitem>
+            <para>Used to model conventional tagging practices, this property
+            annotates a resource with a tag, represented by an instance of
+            <xref linkend="nao:Tag" />. For more on tagging as annotation see
+            <xref linkend="nao:sec-tagging-as-annotation" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:isTagFor</term>
+
+          <listitem>
+            <para>This property is the inverse of <xref
+            linkend="nao:hasTag" />. It links an instance of <xref
+            linkend="nao:Tag" /> to resources that are tagged with it. For
+            more on tagging as annotation see <xref
+            linkend="nao:sec-tagging-as-annotation" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:prefLabel</term>
+
+          <listitem>
+            <para>This property is one of two provided by this ontology to
+            handle custom user labels. Alternative labels can be provided via
+            <xref linkend="nao:altLabel" />. Both properties are subproperties
+            of rdfs:label and expect a literal as value.
+            Given that the domain of this property is rdfs:Resource, it is not
+            applied any cardinality restrictions. Where required, such
+            properties can be defined by extending this property via
+            appropriate subproperties. However, it is intended that at most
+            one value per (natural) language is defined via this property and
+            that at most one literal without any defined language exists.
+            Other usages, although legal, are considered invalid NAO data and
+            are strongly discouraged as they may generate errors.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:altLabel</term>
+
+          <listitem>
+            <para>Via this property a user can provide further custom labels
+            for resources on their desktop, alongside the required, unique
+            value given by <xref linkend="nao:prefLabel" />. Both properties
+            are subproperties of rdfs:label and expect a
+            literal as value.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:pluralPrefLabel</term>
+
+          <listitem>
+            <para>This property supplements <xref linkend="nao:prefLabel" />
+            to provide plural forms for custom user resource labels. In
+            particular it is useful to refer to multiple instances of a calss.
+            It is also a subproperty of rdfs:label and
+            expects a literal as value. No cardinality restrictions are
+            imposed.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:prefSymbol</term>
+
+          <listitem>
+            <para>A subproperty of <xref linkend="nao:hasSymbol" />, this
+            property specifies a preferred symbol for resource annotation,
+            given by an instance of <xref linkend="nao:Symbol" />. Resources
+            can be annotated with alternative symbols via
+            <xref linkend="nao:altSymbol"/>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:altSymbol</term>
+
+          <listitem>
+            <para>This property is used to annotate a resource with
+            alternative symbols, given by instances of <xref
+            linkend="nao:Symbol" />, alongside the preferred symbol that is
+            linked via <xref linkend="nao:prefSymbol" />. It is a subproperty
+            of <xref linkend="nao:hasSymbol" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:description</term>
+
+          <listitem>
+            <para>A subproperty of rdfs:comment, the
+            purpose of this property is similar to <xref
+            linkend="nao:prefLabel" /> and <xref linkend="nao:altLabel" />.
+            However this property is also a subproperty of <xref
+            linkend="nao:annotation" />. Whereas in the context of the social
+            semantic desktop the textual annotation provided via rdfs:comment is meant for technical users, the
+            textual annotation here is aimed at average users and is meant to
+            be used to define custom descriptions of resources on their
+            desktop. The maximum cardinality is 1, and the property expects a
+            literal value.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:personalIdentifier</term>
+
+          <listitem>
+            <para>This property should be used to provide alternative values
+            that identify a resource alongside the default URI. A subproperty
+            of the abstract <xref linkend="nao:identifier" />, the range of
+            this property is a literal. The property is inverse functional,
+            which effectively means that personal identifiers for resources
+            should be unique, and two resources cannot have the same personal
+            identifier.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:numericRating</term>
+
+          <listitem>
+            <para>This property extends <xref linkend="nao:rating" />, to
+            restrict the range to an XSD float datatype. Values must be
+            between '1' and '10' whereas a value of '0' is interpreted as not
+            set. Furthermore, resources can only be given at most one numeric
+            rating, thus the maximum cardinality is 1.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:creator</term>
+
+          <listitem>
+            <para>Via this property the creator/s of a resource can be
+            specified graph. The creator can be a an individual or a group as
+            represented by an instance of the <xref
+            linkend="nao:Party" /> class.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:contributor</term>
+
+          <listitem>
+            <para>This property refers to additional contributors for a
+            resource and is otherwise similar to <xref
+            linkend="nao:creator" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:modified</term>
+
+          <listitem>
+            <para>Represents the modification date/time [<ulink url="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</ulink>] for a resource. More of an abstract class, its subproperties <xref linkend="nao:created" /> and <xref linkend="nao:lastModified" /> prove to be more useful.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:created</term>
+
+          <listitem>
+            <para>Via this property the creation date/time for a resource can be defined. A subproperty of nao:modified, the expected value is of type [<ulink url="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</ulink>] and a typical value is of the form "2007-08-15T23:59:55.329Z". The          maximum cardinality for this property is set to 1.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:lastModified</term>
+
+          <listitem>
+            <para>This property defines the date/time when a resource was most recently modified. It is a subproperty of <xref linkend="nao:modified" />. The maximum cardinality for this property is also set to 1.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:score</term>
+
+          <listitem>
+            <para>This property refers to an authorative score for an item (resource), valued between [0, 1]. A score is a weight of a resource compared to all other resources, and it is computed via a mathematical combination of score parameters e.g.    nao:numericRating, nao:lastModified as well external parameters. For this purpose, parameters that go into the score need to be marked as being sub-properties of <xref linkend="nao:scoreParameter" />. Allowed values for this property are of the [<ulink url="http://www.w3.org/TR/xmlschema-2/#float">xsd:float</ulink>]
+            datatype.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:scoreParameter</term>
+
+          <listitem>
+            <para>Multiple score parameters (e.g. nao:numericRating, nao:lastModified) can be input to a mathematical algorithm that computes an overall <xref linkend="nao:score" /> for a resource. The score parameters in question need to be defined as a subproperty of this property - thus effectively <xref linkend="nao:scoreParameter"/> is a marker property. Ranking algorithms will compute the values of multiple subproperties of scoreParameter and then compute the <xref linkend="nao:score" /> based on a mathematical combination of score parameters. The allowed range is a float number. The exact algorithm is open to implementations. Allowed values for this property are of the [<ulink url="http://www.w3.org/TR/xmlschema-2/#float">xsd:float</ulink>] datatype.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:FreeDesktopIcon</term>
+
+          <listitem>
+            <para>This class represents a desktop icon as defined in the
+            <ulink url="http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html">FreeDesktop Icon</ulink> Naming standard and it is a subclass of <xref linkend="nao:Symbol" />. <xref linkend="nao:iconName" /> is a required property referring to the name of the icon.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:iconName</term>
+
+          <listitem>
+            <para>Values of this property contain the FreeDesktop standard icon name (literal) as defined in the <ulink url="http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html">FreeDesktop</ulink> Naming Specification. The use of the property is required for every instance of <xref linkend="nao:FreeDesktopIcon" /> since its minimum cardinality is set to 1.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:hasSubResource</term>
+
+          <listitem>
+            <para>This property defines a super-sub relationship between two
+            instances of rdfs:Resource - whereby one resource can be treated
+            as dependent on another. Thus if a resource is deleted or removed
+            from a system, all its subresources can also be automatically
+            removed, unless they have other superresources still existant on
+            the system. This property is the inverse property of <xref
+            linkend="nao:hasSuperResource" />. This property is transitive in
+            nature.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:hasSuperResource</term>
+
+          <listitem>
+            <para>This property is the inverse of <xref
+            linkend="nao:hasSubResource" />nao:hasSubResource. It defines a
+            dependency relationship between two resources such that, when the
+            superresource is removed from a system, the defined subresources
+            should also be removed unless they are also subresources of other
+            remaining superresources. This property is transitive in
+            nature.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section id="nao:sec-tagging-as-annotation" xmlns="http://docbook.org/ns/docbook">
+      <title>Tagging as Annotation</title>
+
+      <para>Given tagging is a popular Web 2.0 concept which we want to adopt and retain in our semantic approach to data modelling, in this section we provide an example of how semantic tagging can be performed using our annotation ontology. <xref linkend="nao:tag-class" /> shows how <xref linkend="nao:Tag" /> can be used as a special case of the <xref linkend="nao:annotation"/> relation given in <xref linkend="nao:lower-level" />. The unique default name given by the user when creating a tag is defined by <xref linkend="nao:prefLabel" />. Other custom names for the tag can be defined using <xref linkend="nao:altLabel" /> while a custom user description can be provided via <xref linkend="nao:description" />nao:description. A custom default icon or image can be attached to the tag via <xref linkend="nao:prefSymbol" />, making the icon in question an instance of <xref linkend="nao:Symbol" />. This icon, like any other resource, can also be annotated. The newly created tag is then linked to the resource being tagged (or annotated) via <xref linkend="nao:hasTag" />. An automatic inverse relationship is created to link the new tag with the resource via <xref linkend="nao:isTagFor" />.</para>
+
+	<figure id="nao:tag-class" xreflabel="Figure 3">
+	      <mediaobject>
+		<imageobject role="html">
+		  <imagedata fileref="nao-tag-class.png" scalefit="1" />
+		</imageobject>
+
+		<caption>Figure 3. Modelling conventional tagging</caption>
+	      </mediaobject>
+      	</figure>
+    </section>
+
+    <section id="nao:sec-generic-annotation-example" xmlns="http://docbook.org/ns/docbook">
+      <title>Generic Annotation Example</title>
+
+      <para>A person wants to annotate a file of type image/photo on their
+      personal desktop. The photo depicts a friend, Claudia, drinking coffee
+      in the SAP offices. The user states that the photo 'is related' (via
+      nao:isRelated - a symmetric property) to the following resources:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>[1] a resource representing Claudia on the user's desktop
+          (ex:Claudia)</para>
+        </listitem>
+
+        <listitem>
+          <para>[2] a resource representing the organisation SAP on the user's
+          desktop (ex:SAP)</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Furthermore, the user states that the photo 'is about' (via
+      nao:hasTopic) the following resources: <itemizedlist>
+          <listitem>
+            <para>[3] a concept from a Work ontology defining a colleague at
+            work (work:Colleague)</para>
+          </listitem>
+
+          <listitem>
+            <para>[4] a concept from a Work ontology defining a working office
+            (work:Office)</para>
+          </listitem>
+        </itemizedlist>[5] The user defines a custom personal identifier for
+      the photo, 'ClaudiaOffice20070815'.</para>
+
+      <para>[6] Finally, the user also tags the photo with an instance of
+      nao:Tag they create:</para>
+
+      <para> 
+	<itemizedlist>
+          <listitem>
+            <para>[7],[8] The user labels the new tag 'Work', with the
+            alternative labels 'SAP' and 'WorkPlace'.</para>
+          </listitem>
+
+          <listitem>
+            <para>[9],[10] The user also selects an icon for the new tag that
+            they find on their desktop, and creates a custom description for
+            the new tag.</para>
+          </listitem>
+        </itemizedlist>
+	The resulting statements are generated and stored within a named graph 'ex:i1'. Apart from the obvious statements, note the following automatically generated statements
+	</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>[11] Since nao:hasTag has the inverse property nao:isTagFor,
+          the newly generated tag is also related to the tagged resource via
+          this inverse property.</para>
+        </listitem>
+
+        <listitem>
+          <para>[12] The icon used as a symbol for the tag (ex:WorkIcon) is
+          now also an instance of nao:Symbol.</para>
+        </listitem>
+
+        <listitem>
+          <para>Since nao:isRelated is symmetric the resources related to the
+          photo via this property (ex:SAP and ex:Claudia) are themselves
+          defined as related to the photo.</para>
+        </listitem>
+      </itemizedlist>
+	  
+        <programlisting>
+ex:i1 {
+[1]  ex:DSCF001 nao:isRelated ex:Claudia ,
+[2]                           ex:SAP ;
+[3]                nao:hasTopic work:Colleague ,
+[4]                             work:Office ;
+[5]                nao:personalIdentifier "ClaudiaOffice20070815" ;
+[6]                nao:hasTag ex:Work .
+
+	 ex:Work a nao:Tag ;
+[7]          nao:prefLabel "Work" ;
+[8]          nao:altLabel "WorkPlace" ,
+						  "SAP" ;
+[9]          nao:hasSymbol ex:WorkIcon ; 
+[10]         nao:description "Represents all about my work, workplace, workmates etc" ;
+[11]         nao:isTagFor ex:DSCF001 .
+			
+[12] ex:WorkIcon a nao:Symbol . 
+	
+[13] ex:SAP nao:isRelated ex:DSCF001 .
+
+[14] ex:Claudia nao:isRelated ex:DSCF001 . }
+			</programlisting>
+    </section>
+  </section>
+
+  <section id="nao:sec-graph-metadata-vocabulary" xmlns="http://docbook.org/ns/docbook">
+    <title>Graph Metadata Vocabulary</title>
+
+    <para>In this section we provide the description and specifications for the subpart of the annotation ontology dealing with Graph Metadata. Graph metadata is a form of annotation where the subject of the annotations are named graphs, as specified in [<link linkend="nao:sec-references">NRL SPECIFICATION</link>]. Given the important and central role that named graphs have in the NRL concept, this graph metadata, or graph annotation, vocabulary is considered to be part of the annotation ontology, and the properties are subproperties of <xref linkend="nao:annotation"/>.</para>
+
+    <para>NRL already provides vocabulary that is used to define essential graph metadata [See <xref linkend="nrl:sec-graph-roles-vocabulary"/>], including graph role speficiation and whether the graph is a document graph (see <xref linkend="nao:named-graphs" />), whether a graph is updatable or otherwise (via <xref linkend="nrl:updatable"/>) and specification of the declarative semantics for a graph (via <xref linkend="nrl:hasSemantics"/>).</para>
+
+    <para>Generic annotation vocabulary given in this ontology is also applicable to named graphs (which are in fact special cases of a resource). In particular, <xref linkend="nao:creator" />, <xref linkend="nao:contributor" />, <xref linkend="nao:created" /> and <xref inkend="nao:lastModified" /> are of special relevance when it comes to providing metadata for a named graph. The vocabulary provided in this section enables additional graph annotations to those provided by NRL and by the NAO generic annotation vocabulary. An example that makes full use of all the relevant vocabulary is given in <xref linkend="nao:sec-graph-metadata-example" />.</para>
+
+    <para>In contrast to vocabularies like the Ontology Metadata Vocabulary [<link linkend="nao:sec-references">OMV Report</link>], which was a major source of inspiration for this vocabulary, our vocabulary is applicable to all Graph Roles as defined in NRL (<xref linkend="nao:named-graphs" />), and not just ontologies. The majority of graph metadata properties thus have <xref linkend="nrl:Data"/> as their domain. Other properties apply specifically to <xref linkend="nrl:DocumentGraph" /> (documents that encode named graphs).</para>
+
+	<figure id="nao:named-graphs" xreflabel="Figure 4">
+	    <mediaobject>
+	      <imageobject role="html">
+		<imagedata fileref="nao-named-graphs.png" scalefit="1" />
+	      </imageobject>
+
+	      <caption>Figure 4. Graph Roles Hierarchy</caption>
+	    </mediaobject>
+    	</figure>
+
+    <para>While generic annotation for a resource is usually stored within the graph where the resource is defined, metadata about a graph is stored outside that graph, in a separate but associated metadata graph. These special graphs are marked using the [<xref linkend="nrl:GraphMetadata" />] role, also shown in <xref linkend="nao:named-graphs" /> and linked to their respective graphs via [<xref linkend="nrl:graphMetadataFor" />]. The unique metadata graph that defines the non-subjective attributes (graph role, semantics, namespace, etc) for a graph is instead linked to that graph via [<xref linkend="nrl:coreGraphMetadataFor" />].</para>
+
+    <section id="nao:sec-general-graph-metadata" xmlns="http://docbook.org/ns/docbook">
+      <title>General Graph Metadata</title>
+
+      <para>The following vocabulary applies to all NRL Graph Roles. Although
+      some of them appear to be ontology-specific, properties which apply to
+      e.g. both <xref linkend="nrl:InstanceBase"/> and <xref linkend="nrl:Ontology" /> are listed here, since their
+      common superclass is <xref linkend="nrl:Data"/>. Given that graph metadata is considered
+      to be a special case of annotation, most of the vocabulary consists of
+      subproperties of nao:annotation. These properties are depicted in <xref
+      linkend="nao:data-properties" /> and described individually in the following
+      subsections. Although the use of none of these properties is compulsory,
+      their use is recommended as a best practice.</para>
+
+	<figure id="nao:data-properties" xreflabel="Figure 5">
+	      <mediaobject>
+		<imageobject role="html">
+		  <imagedata fileref="nao-data-properties.png" scalefit="1" />
+		</imageobject>
+
+		<caption>Figure 5. General Graph Metadata properties</caption>
+	      </mediaobject>
+	</figure>
+	
+      <variablelist>
+        <varlistentry>
+          <term>nao:hasDefaultNamespace</term>
+
+          <listitem>
+            <para>This property explicitally defines the default namespace for
+            a named graph. The value for this property should therefore be a
+            valid URI ending with the '#' sign.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:hasDefaultNamespaceAbbreviation</term>
+
+          <listitem>
+            <para>A default namespace abbreviation for a named graph can be
+            defined via the use of this property. This prevents a scenario
+            where different random abbreviations are generated from different
+            applications for the same graph.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:engineeringTool</term>
+
+          <listitem>
+            <para>Graphs that are generated via a specific graph engineering
+            tool can make use of this property. The value is a string stating
+            the name of the editing tool.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:version</term>
+
+          <listitem>
+            <para>This property specifies version information for the graph
+            role and is particularly useful for tracking, comparing and
+            merging data. Legal values for this property are of the [<ulink
+            url="http://www.w3.org/TR/xmlschema-2/#float">xsd:float</ulink>]
+            datatype. A graph can have at most one version, hence the maximum
+            cardinality is 1.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nao:status</term>
+
+          <listitem>
+            <para>Tracking information for the contents of a graph can be
+            specified via this property. Typical values, of type string,
+            include "Stable", "Unstable" and "Testing".</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section id="nao:sec-document-graph-metadata" xmlns="http://docbook.org/ns/docbook">
+      <title>Document Graph Metadata</title>
+
+      <para>A special class in the NRL specifications, [<xref linkend="nrl:DocumentGraph"/>], is defined to mark graphs that are completely represented within a document which can be accessed via a URL, which effectively also becomes the name of the graph. The following property, also shown in <xref linkend="nao:document-graph" />, applies only to instances of such graphs.</para>
+
+   <figure id="nao:document-graph" xreflabel="Figure 6">
+      <mediaobject>
+        <imageobject role="html">
+          <imagedata fileref="nao-document-graph.png" scalefit="1"/>
+        </imageobject>
+
+        <caption>Figure 6. Graph Metadata for Graphs encoded in documents</caption>
+      </mediaobject>
+   </figure>
+
+      <variablelist>
+        <varlistentry>
+          <term>nao:serializationLanguage</term>
+
+          <listitem>
+            <para>This property states the graph serialization language for
+            the document, e.g. XML/RDFS, RDFS/N3, TriG etc.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section id="nao:sec-graph-metadata-example" xmlns="http://docbook.org/ns/docbook">
+      <title>Graph Metadata Example</title>
+
+      <para>The following example demonstrates the use and best practice for
+      the Graph Metadata Vocabulary given in this section.</para>
+
+      <para>[1] In this example we assume that a named graph with the role of
+      an ontology exists and is given by ex:o1.</para>
+
+      <para>[2] Graph metadata for this ontology is provided by the metadata
+      graph ex:o1_metadata. This graph consists of annotations for the
+      ontology stored in graph ex:o1. These annotations are defined using the
+      graph metadata vocabulary specified in this document.</para>
+
+      <para>[3],[4] The metadata graph includes first and foremost a
+      description about itself, stating that it is indeed a named graph with a
+      nrl:GraphMetadata role. It is further stated that this is the core graph
+      metadata that defines the core properties for the graph ex:o1, via <xref linkend="nrl:coreGraphMetadataFor"/>.</para>
+
+      <para>[5] Metadata for the actual graph being described is then
+      provided. This metadata includes the following:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>[6] The creator of the ontology is defined to be ex:SAP, with
+          two separate contributors being ex:Dirk and ex:Claudia. This
+          automatically generates the statement (usually not within this
+          graph) that ex:SAP, ex:Dirk and ex:Claudia are annotators and
+          therefore instances of nao:Party.</para>
+        </listitem>
+
+        <listitem>
+          <para>[7] The ontology is defined to be 'Stable' at version 1.2. The
+          last modified time is also represented.</para>
+        </listitem>
+
+        <listitem>
+          <para>[8] A static, standard namespace and namespace abbreviation
+          are defined.</para>
+        </listitem>
+
+        <listitem>
+          <para>[9] The graph is said to be non-updatable, meaning that if the
+          ontology needs to be changed, a new version needs to be generated
+          while leaving the original unchanged. See <xref linkend="nrl:updatable"/>.</para>
+        </listitem>
+      </itemizedlist>
+
+		<programlisting>
+[1] ex:o1 {
+         # Work Ontology provided in this named graph
+         }
+
+[2] ex:o1/metadata { 
+[3]   ex:o1/metadata a nrl:GraphMetadata ;
+[4]                    nrl:coreGraphMetadataFor ex:o1 . }   
+
+[5]   ex:o1 a nrl:Ontology ;
+[6]         nao:creator ex:SAP ;
+            nao:contributor ex:Dirk ,
+                            ex:Claudia ;
+[7]         nao:version "1.2" ;
+            nao:lastModified "2007-08-15T23:59:55.329Z" .
+            nao:status "Stable" ;
+[8]         nao:hasNamespace "http://www.example.org/ontologies/work#" ;
+            nao:hasNamespaceAbbreviation "work" ;
+[9]         nrl:updatable "0" . }
+		</programlisting>
+    </section>
+</section>
+
+<section id="nao:sec-references" xmlns="http://docbook.org/ns/docbook">
+   <title>References</title>
+      <variablelist>
+        <varlistentry>
+          <term>NRL SPECIFICATIONS</term>
+
+          <listitem>
+            <para><ulink url="http://www.semanticdesktop.org/ontologies/nrl">NEPOMUK Representation Language (NRL) Vocabulary Specification</ulink>. NEPOMUK.,  Task-Force Ontologies. http://www.semanticdesktop.org/ontologies/nrl.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>OMV Report</term>
+
+          <listitem>
+            <para><ulink url="http://ontoware.org/projects/omv/">Ontology Metadata Vocabulary for the Semantic</ulink>. Web. Jens Hartmann (University of Karlsruhe), Raul Palma (Universidad Politecnica de Madrid) and Elena Paslaru Bontas (Free University of Berlin). http://ontoware.org/projects/omv/</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+</section>

@@ -1,0 +1,11 @@
+    <authorgroup xmlns="http://docbook.org/ns/docbook">
+      <author><personname><firstname>Marco</firstname><surname>Brunzel</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>marco.brunzel@dfki.de</email></author>
+      <author><personname><firstname>Olaf</firstname><surname>Grebner</surname></personname><affiliation><org><orgname>SAP</orgname></org></affiliation><email>olaf.grebner@sap.com</email></author>
+      <editor><personname><firstname>Marco</firstname><surname>Brunzel</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>marco.brunzel@dfki.de</email></editor>
+      <editor><personname><firstname>Olaf</firstname><surname>Grebner</surname></personname><affiliation><org><orgname>SAP</orgname></org></affiliation><email>olaf.grebner@sap.com</email></editor>
+      <othercredit><personname><firstname>Leo</firstname><surname>Sauermann</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>leo.sauermann@dfki.de</email></othercredit>
+      <othercredit><personname><firstname>Michael</firstname><surname>Sintek</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>michael.sintek@dfki.de</email></othercredit>
+      <othercredit><personname><firstname>Ludger</firstname><surname>van Elst</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>elst@dfki.uni-kl.de</email></othercredit>
+      <othercredit><personname><firstname>Ansgar</firstname><surname>Bernardi</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>ansgar.bernardi@dfki.de</email></othercredit>
+      <othercredit><personname><firstname>Uwe</firstname><surname>Riss</surname></personname><affiliation><org><orgname>SAP</orgname></org></affiliation><email>uwe.riss@sap.com</email></othercredit>
+    </authorgroup>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rdf:RDF [
+	 <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+	 <!ENTITY wgs84_pos 'http://www.w3.org/2003/01/geo/wgs84_pos#'>
+	 <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+]>
+<rdf:RDF xmlns:rdf="&rdf;"
+	 xmlns:wgs84_pos="&wgs84_pos;"
+	 xmlns:rdfs="&rdfs;">
+<rdfs:Class rdf:about="&wgs84_pos;Point"
+	 rdfs:label="Point">
+	<rdfs:comment>
+Uniquely identified by lat/long/alt. i.e.
+
+spaciallyIntersects(P1, P2) :- lat(P1, LAT), long(P1, LONG), alt(P1, ALT),
+  lat(P2, LAT), long(P2, LONG), alt(P2, ALT).
+
+sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P2).
+
+A point, typically described using a coordinate system relative to Earth, such as WGS84.
+</rdfs:comment>
+	<rdfs:subClassOf rdf:resource="&wgs84_pos;SpatialThing"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&wgs84_pos;SpatialThing"
+	 rdfs:label="SpatialThing">
+	<rdfs:comment>Anything with spatial extent, i.e. size, shape, or position. e.g. people, places, bowling balls, as well as abstract areas like cubes.
+</rdfs:comment>
+	<rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+</rdfs:Class>
+<rdf:Property rdf:about="&wgs84_pos;alt"
+	 rdfs:label="alt">
+	<rdfs:comment>The WGS84 altitude of a SpatialThing (decimal meters 
+above the local reference ellipsoid).</rdfs:comment>
+	<rdfs:domain rdf:resource="&wgs84_pos;SpatialThing"/>
+</rdf:Property>
+<rdf:Property rdf:about="&wgs84_pos;lat"
+	 rdfs:comment="The WGS84 latitude of a SpatialThing (decimal degrees)."
+	 rdfs:label="lat">
+	<rdfs:domain rdf:resource="&wgs84_pos;SpatialThing"/>
+</rdf:Property>
+<rdf:Property rdf:about="&wgs84_pos;lat_long"
+	 rdfs:label="lat_long">
+	<rdfs:comment>A comma-separated representation of a latitude, longitude coordinate.</rdfs:comment>
+</rdf:Property>
+<rdf:Property rdf:about="&wgs84_pos;long"
+	 rdfs:comment="The WGS84 longitude of a SpatialThing (decimal degrees)."
+	 rdfs:label="long">
+	<rdfs:domain rdf:resource="&wgs84_pos;SpatialThing"/>
+</rdf:Property>
+</rdf:RDF>

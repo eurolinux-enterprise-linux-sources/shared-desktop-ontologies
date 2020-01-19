@@ -1,0 +1,383 @@
+0.11.0
+    06/27/2012 - trueg
+           Added new properties to NMM:
+               nmm:albumArtist
+               nmm:albumProducer
+               nmm:albumConductor
+    06/11/2013 - vhanda
+            Make nco:emailAddress a subPropertyOf nao:identifier
+            Change the range of nfo:fileSize from int to long
+
+0.10.1
+    08/23/2012 - trueg
+           Fixed range of nmm:musicBrainzTrackID: xsd:string instead of xsd:integer
+
+0.10.0
+    02/11/2012 - trueg
+	   Added nmm:TVSeason and friends to make TV seasons fully qualified resources.
+    02/28/2012 - Evgeny Egorochkin
+           Fixed nmo:messageHeader cardinality restriction.
+
+0.9.0
+    01/05/2012 - trueg
+           Added properties nfo:depicts and nfo:depiction
+           Made nmm:artwork a subproperty of nfo:depiction
+
+    12/13/2011 - trueg
+           Added nrl:DefiningProperty and nrl:NonDefiningProperty
+
+    12/12/2011 - trueg
+           Set nao:userVisible on the following classes and properties:
+              nao:score
+              nao:hasSubResource
+              nao:hasSuperResource
+              nrl:Graph
+              rdf:Property
+              rdfs:Class
+              rdfs:Resource
+              nie:hasPart
+              nie:isPartOf
+              nfo:hasHash
+              nuao:Event
+
+    08/23/2011 - trueg
+           Added class nfo:LocalFileDataObject
+
+
+0.8.1
+    11/25/2011 - trueg
+           Fixed domain of nmm:setSize to nmm:MusicAlbum
+
+0.8.0
+    08/18/2011 - trueg
+           Made nfo:FileName a sub-property of nao:prefLabel
+
+    08/14/2011 - trueg
+           Added nfo:WebDataObject
+
+    08/05/2011 - trueg
+           Fixed range of nexif:orientation
+           Added nmm:setNumber and nmm:setSize
+
+    07/24/2011 - trueg
+           Added nmm:albumTrackCount
+
+    07/15/2011 - trueg
+           nmm:MusicPiece is a subclass of nfo:Audio instead of nfo:Media
+           Added focus event handling:
+              nuao:FocusEvent
+              nuao:totalFocusDuration
+              nuao:initiatingAgent
+              nuao:targettedResource
+           pimo:person is a sub-class of nao:Party
+           Added nfo:colorCount and nfo:paletteSize
+
+    06/27/2011 - trueg
+           Made ncal:comment a subproperty of nie:comment
+
+    06/14/2011 - grundleborg
+           Added new more specific way of specifying the IM availability status:
+              nco:imStatusType
+              nco:IMStatusType
+              nco:IMStatusTypeOffline
+              nco:IMStatusTypeAvailable
+              nco:IMStatusTypeAway
+              nco:IMStatusTypeExtendedAway
+              nco:IMStatusTypeHidden
+              nco:IMStatusTypeBusy
+              nco:IMStatusTypeUnknown
+
+    06/05/2011 - trueg
+           Added nie:modified and nie:contentModified
+
+    05/24/2011 - trueg
+           Fixed ranges of
+              nmm:albumPeakGain
+              nmm:trackGain
+              nmm:trackPeakGain
+              nmm:albumGain
+
+0.7.1
+    06/14/2011 - trueg
+           Fixed domain of nao:maintainedBy
+
+0.7.0
+    05/11/2011 - trueg
+            Set max cardinalities to 1 on:
+              nao:score
+              nao:prefSymbol
+              nao:creator
+              nao:prefLabel
+              nao:pluralPrefLabel
+              nao:deprecated
+
+              nco:contactUID
+
+              nie:characterSet
+              nie:language
+              nie:created
+              nie:lastModified
+              nie:mimeType
+              nie:title
+              nie:plainTextContent
+              nie:htmlContent
+              nie:contentSize
+
+              nfo:horizontalResolution
+              nfo:sampleRate
+              nfo:hashAlgorithm
+              nfo:commentCharacterCount
+              nfo:foundry
+              nfo:sideChannels
+              nfo:interlaceMode
+              nfo:width
+              nfo:frameCount
+              nfo:filesystemType
+              nfo:totalSpace
+              nfo:freeSpace
+              nfo:occupiedSpace
+              nfo:permissions
+              nfo:lineCount
+              nfo:wordCount
+              nfo:bookmarks
+              nfo:characterPosition
+              nfo:pageNumber
+              nfo:streamPosition
+              nfo:characterCount
+              nfo:fileLastAccessed
+              nfo:sampleCount
+              nfo:height
+              nfo:frontChannels
+              nfo:rearChannels
+              nfo:bitsPerSample
+              nfo:duration
+              nfo:lfeChannels
+              nfo:isPasswordProtected
+              nfo:hashValue
+              nfo:uncompressedSize
+              nfo:deletionDate
+              nfo:originalLocation
+              nfo:channels
+              nfo:colorDepth
+              nfo:averageBitrate
+              nfo:fileOwner
+              nfo:aspectRatio
+              nfo:bitDepth
+              nfo:verticalResolution
+              nfo:frameRate
+              nfo:fontFamily
+              nfo:fileCreated
+              nfo:bitrateType
+              nfo:encoding
+              nfo:compressionType
+              nfo:pageCount
+              nfo:encryptionStatus
+              nfo:fileSize
+
+              nmm:trackNumber
+              nmm:musicBrainzTrackID
+              nmm:trackGain
+              nmm:trackPeakGain
+              nmm:internationalStandardRecordingCode
+              nmm:musicBrainzAlbumID
+              nmm:albumGain
+              nmm:albumPeakGain
+              nmm:releaseDate
+
+              ncal:ncalTimezone
+              ncal:created
+              ncal:wkst
+              ncal:uid
+              ncal:standard
+              ncal:attachmentUri
+              ncal:periodDuration
+              ncal:dtstamp
+              ncal:class
+              ncal:transp
+              ncal:date
+              ncal:dtend
+              ncal:dateTime
+              ncal:fbtype
+              ncal:sequence
+              ncal:repeat
+              ncal:rsvp
+              ncal:geo
+              ncal:fmttype
+              ncal:dtstart
+              ncal:count
+              ncal:duration
+              ncal:lastModified
+              ncal:url
+              ncal:completed
+              ncal:priority
+              ncal:statusDescription
+              ncal:location
+              ncal:eventStatus
+              ncal:bydayModifier
+              ncal:method
+              ncal:triggerDateTime
+              ncal:interval
+              ncal:requestStatus
+              ncal:recurrenceId
+              ncal:periodBegin
+              ncal:tzoffsetfrom
+              ncal:triggerDuration
+              ncal:calscale
+              ncal:periodEnd
+              ncal:tzoffsetto
+              ncal:range
+              ncal:todoStatus
+              ncal:journalStatus
+              ncal:due
+              ncal:recurrenceIdDateTime
+              ncal:returnStatus
+              ncal:daylight
+              ncal:encoding
+              ncal:tzid
+              ncal:freq
+
+              nmo:messageFrom
+              nmo:isRead
+              nmo:inReplyTo
+              nmo:messageReplyTo
+              nmo:contentMimeType
+              nmo:messageSender
+
+	12/08/2010 - trueg
+        	Set max cardinalities to 1 on:
+	          nco:streetAddress
+        	  nco:pobox
+	          nco:phoneNumber
+	          nco:nameGiven
+	          nco:nameFamily
+	          nco:extendedAddress
+	          nco:hasLocation
+	          nco:addressLocation
+	          nco:org
+	          nco:title
+	          nco:voiceMail
+	          nco:imAccountType
+	          nco:imStatusMessage
+	          nco:isBlocked
+        	Deprecated nco:contactMediumComment in favor of nie:comment or nao:description - based on the context
+
+	02/22/2011 - trueg
+		Added new class nao:Agent and new property nao:maintainedBy
+
+	03/15/2011 - trueg
+		Set nrl:maxCardinality of nie:url to 1 as per ticket #81.
+
+	03/28/2011 - trueg
+		Made nfo:Software a subClassOf nao:Agent as per ticket #82.
+
+0.6
+	12/13/2010 - trueg
+	        Added new property nie:htmlContent as a super property of nmo:htmlMessageContent
+
+	12/07/2010 - trueg (from a patch by George Goldberg)
+		Added new properties:
+			nco:isAccessedBy
+			nco:publishesPresenceTo
+			nco:requestedPresenceSubscriptionTo
+			nco:isBlocked
+
+	12/07/2010 - trueg (from a patch by George Goldberg)
+		Added new class nco:IMCapability and instances nco:imCapabilityText, nco:imCapabilityAudio, and nco:imCapabilityVideo
+		Added new property nco:hasIMCapability
+			
+	12/06/2010 - trueg
+		Use package version number for all ontology versions.
+
+0.5
+	05/09/2010 - phreedom
+		Added new properties:
+		      nco:start
+		      nco:end
+		to allow defining nco:Roles that only span a certain time.
+
+	05/09/2010 - phreedom
+		Inverted property ndo:involvedInEvent by switching
+		domain and range. The new property is named
+		ndo:involved.
+	
+	05/08/2010 - trueg
+		Fixed graph URIs in NDO metadata.
+	
+0.4
+	05/04/2010 - trueg:
+		Added NDO and NUAO ontologies to the distributed ontologies.
+		Both are still marked as being in the "Testing" state.
+
+	05/04/2010 - trueg:
+		Fixed syntax error in nid3.trig
+
+	03/12/2010 - m4db0b
+		Deprecated NMO properties with range nco:Contact and added equivalent
+                ones with range nco:ContactMedium:
+		Deprecated properties:
+			nmo:to
+                        nmo:cc
+                        nmo:bcc
+                        nmo:from
+                        nmo:primaryRecipient
+                        nmo:replyTo
+                        nmo:recipient
+                        nmo:secondaryRecipient
+                        nmo:sender
+			
+		New properties:
+			nmo:emailTo
+			nmo:emailCc
+			nmo:emailBcc
+			nmo:messageFrom
+			nmo:primaryMessageRecipient
+			nmo:messageReplyTo
+			nmo:messageRecipient
+			nmo:secondaryMessageRecipient
+			nmo:messageSender
+
+0.3
+	03/08/2010 - phreedom:
+		Added nrl:DiscardableInstanceBase
+
+	02/15/2010 - trueg:
+		Added new classes and properties to NMM:
+			nmm:Movie
+			nmm:TVShow
+			nmm:TVSeries
+			nmm:Season
+			nmm:genre
+			nmm:series
+			nmm:hasEpisode
+			nmm:episodeNumber
+			nmm:season
+			nmm:seasonNumber
+			nmm:audienceRating
+			nmm:writer
+			nmm:director
+			nmm:producer
+			nmm:actor
+			nmm:cinematographer
+			nmm:releaseDate
+
+        12/04/2009 - phreedom:
+		Added nao:deprecated property and added deprecation flags to:
+			nfo:fileLastModified
+			nfo:fileUrl
+0.2
+        11/27/2009 - trueg: Added "nrl:maxCardinality 1" to:
+                            nco:region
+                            nco:country
+                            nco:imStatus
+                            nco:birthDate
+                            nco:postalcode
+                            nco:contactGroupName
+                            nco:emailAddress
+                            nco:locality
+                            nco:gender
+                            nmo:messageSubject
+                            nmo:receivedDate
+        11/27/2009 - trueg: Added SharedDesktopOntologiesConfig.cmake 
+
+0.1
+        First release of the shared ontologies.

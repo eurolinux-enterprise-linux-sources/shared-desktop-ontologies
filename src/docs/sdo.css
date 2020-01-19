@@ -1,0 +1,292 @@
+/* Adapted from a "Style for an "Interest Group Note" */ /*
+   Copyright 1997-2003 W3C (MIT, ERCIM, Keio). All Rights Reserved.
+   The following software licensing rules apply:
+   http://www.w3.org/Consortium/Legal/copyright-software */
+
+body {
+    padding-bottom: 2em;
+    padding-left:46px;
+    padding-right:290px;
+	margin: 0;
+	font-family: sans-serif;
+	color: black;
+	background: white;
+	background-position: top left;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-image: url(logo-nepomuk-ontology.png);
+}
+
+.author, .editor, .othercredit {
+  padding-left:1em;
+}
+
+h3.author, h3.editor, h3.othercredit {
+  font-size:small;
+  margin-bottom:0;
+}
+
+.affiliation {
+  padding-left:2em;
+  display:inline;
+}
+
+.mediaobject { text-align:center; }
+
+blockquote { margin-top: 0pt; margin-bottom: 0pt; text-align: justify }
+
+pre { border: 1.00pt solid #000000; padding: 0.02in; width:85%; }
+    
+.footnotes { font-size: smaller; background-color:#fef; width: 70% }
+    
+address {text-align: right; text-indent: 15pt}
+
+:link {
+	color: #00C;
+	background: transparent
+}
+
+table {
+	border: 0px !important;
+	border-collapse: collapse;
+}
+
+td {
+    border: 0px !important;
+}
+
+td.rowheader {
+	width: 20%;	
+}
+
+th {
+    border: 0px !important;
+}
+
+:visited {
+	color: #609;
+	background: transparent
+}
+
+a:active {
+	color: #C00;
+	background: transparent
+}
+
+a:link img,a:visited img {
+	border-style: none
+}
+
+/* no border on img links */
+a img {
+	color: white;
+}
+
+/* trick to hide the border in Netscape 4 */
+@media all { 
+	/* hide the next rule from Netscape 4 */
+	a img {
+		color: inherit;
+	} 
+	/* undo the color change above */
+}
+
+th,td { 
+	/* ns 4 */
+	font-family: sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	text-align: left
+}
+
+/* background should be transparent, but WebTV has a bug */
+h1,h2,h3 {
+	color: #005A9C;
+	background: white
+}
+
+h1 {
+	font: 170% sans-serif
+}
+
+h2 {
+	font: 140% sans-serif
+}
+
+h3 {
+	font: 120% sans-serif
+}
+
+h4 {
+	font: bold 100% sans-serif
+}
+
+h5 {
+	font: italic 100% sans-serif
+}
+
+h6 {
+	font: small-caps 100% sans-serif
+}
+
+.hide {
+	display: none
+}
+
+div.head {
+	margin-bottom: 1em
+}
+
+div.head h1 {
+	margin-top: 2em;
+	clear: both
+}
+
+div.head table {
+	margin-left: 2em;
+	margin-top: 2em
+}
+
+p.copyright {
+	font-size: small
+}
+
+p.copyright small {
+	font-size: small
+}
+
+@media screen { /* hide from IE3 */
+	a [href]:hover {
+		background: #ffa
+	}
+}
+
+pre {
+	margin-left: 2em
+}
+
+pre,code {
+	font-family: monospace
+}  /* navigator 4 requires this */
+ul.toc,ol.toc {
+	list-style: disc; /* Mac NS has problem with 'none' */
+	list-style: none;
+}
+
+@media aural {
+	h1,h2,h3 {
+		stress: 20;
+		richness: 90
+	}
+	.hide {
+		speak: none
+	}
+	p.copyright {
+		volume: x-soft;
+		speech-rate: x-fast
+	}
+	dt {
+		pause-before: 20%
+	}
+	pre {
+		speak-punctuation: code
+	}
+}
+
+h3.subtitle {
+    font: bold 100% sans-serif
+}
+
+div.abstract {
+    text-align: justify;
+}
+
+div.section {
+    text-align: justify;
+}
+
+div.preface {
+    text-align: justify;
+}
+
+.informaltable {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #B1E5FF;
+    border: 1px solid #0A7CB3 !important;
+    padding: 6px 0 6px 0px;
+}
+
+.informaltable td {
+    font-size: 90%;
+    padding-left: 6px;
+    padding-right: 6px;
+    vertical-align: top;
+}
+
+.informaltable table
+{
+    border: 0px !important;
+    width: 100%;
+}
+
+.informaltable col:first-child {
+    width: 15% !important;
+}
+
+.informaltable tr:nth-child(even) {
+    background-color: #F0F0F0;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.orgname {
+    font-size: small;
+}
+
+.email {
+    font-size: small;
+}
+
+div.toc {
+    position:fixed;
+    right:0px;
+    top:88px;
+    width:260px;
+    font-size:0.7em;
+    -moz-border-radius: 0px 0px 0px 10px;
+    -webkit-border-radius: 0px 0px 0px 10px;
+    -khtml-border-radius: 0px 0px 0px 10px;
+    border-radius: 0px 0px 0px 10px;
+    border-left: 1px solid #0A7CB3 !important;
+    border-bottom: 1px solid #0A7CB3 !important;
+    padding: 0px 6px 0px 6px;
+}
+
+div.nav {
+    position:fixed;
+    top:0;
+    right:0px;
+    width:272px;
+    height:88px;
+    border-left: 1px solid #0A7CB3 !important;
+    border-bottom: 1px solid #0A7CB3 !important;
+}
+
+div.menu {
+    position:absolute;
+    top:60px;
+    right:10px;
+    color:white;
+    clear:both;
+    font-size:0.7em;
+}
+
+div.menuitem {
+    position:relative;
+    float:right;
+    padding:5px;
+}

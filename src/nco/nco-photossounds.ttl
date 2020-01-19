@@ -1,0 +1,47 @@
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix nco:      <http://www.semanticdesktop.org/ontologies/2007/03/22/nco#> .
+@prefix nfo:      <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix nie:      <http://www.semanticdesktop.org/ontologies/2007/01/19/nie#> .
+@prefix nexif:    <http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#> .
+@prefix nid3:     <http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#> .
+@prefix : <http://jan.pl/examplens#> .
+
+
+:JanContact a nco:Contact;
+	nco:nameGiven "Jan" ;
+	nco:nameFamily "Kowalski" ;
+	nco:hasPostalAddress [
+		a nco:PostalAddress ;
+ 		nco:country "Poland" ;
+		nco:region "woj. zachodniopomorskie" ;
+		nco:locality "Szczecin" ;
+		nco:postalcode "70-507" ;
+		nco:streetAddress "ul. Poboznego 2"
+	] ;
+	nco:photo [
+		a nfo:Attachment ;
+		nfo:fileName "jan.jpg" ;
+		nfo:fileSize "342342"^^xsd:integer ;
+		nie:mimeType "image/jpeg" ;
+		nie:interpretedAs [
+			a nexif:Photo
+		]
+	] ;
+	nco:sound [
+		a nfo:Attachment ;
+		nfo:fileName "jan-says-helo.mp3" ;
+		nfo:fileSize "342342"^^xsd:integer ;
+		nie:mimeType "audio/mpeg" ;
+		nie:interpretedAs [
+			a nid3:ID3Audio ;
+			nfo:bitsPerSample "16"^^xsd:integer ;
+			nfo:channels "2"^^xsd:integer ;
+			nfo:sampleRate "44100"^^xsd:integer ;
+			nfo:sampleCount "683550"^^xsd:integer
+		]
+	] .
+
+
+
+

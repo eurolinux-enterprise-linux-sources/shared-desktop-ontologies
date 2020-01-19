@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="tmo:sec-ontology-visualization" xmlns="http://docbook.org/ns/docbook">
+	<title>Ontology Visualization</title>
+	
+	
+	<figure id="tmo:fig-tmo-ontology-visualization">
+	<ulink url="tmo-ontology-visualization.png">
+		<mediaobject>
+			<imageobject role="html">
+				<imagedata fileref="tmo-ontology-visualization.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+		</ulink>
+	</figure>
+	
+	
+</section>
+
+<section id="tmo:sec-introduction" xmlns="http://docbook.org/ns/docbook">
+    <title>Introduction</title>
+	
+	<para>The Task Management Model Ontology (TMO) is a conceptual representation of tasks for use in personal task management applications for knowledge workers.</para>
+	
+	<para>Knowledge workers perform knowledge work. For example, managers, researchers and sales representatives are knowledge workers. Knowledge work is goal driven, i.e., a knowledge worker strives to achieve a goal with the execution of her work. Knowledge work can be broken down into tasks where each task has a goal that the knowledge worker needs to achieve in order to complete the task. Knowledge workers can reach their goals using different approaches and methods which can differ individually from knowledge worker to knowledge worker. Knowledge is thus rather characterized by variety than by routine.</para>
+
+	<para>Tasks are units of work. We address a kind of tasks which often arise during performing the work, compared to task which are apriory given. Or in other words, the modelling of tasks is also done during task execution. Workflows are usually not enforced upon those tasks. Such tasks can form flexible workflows where recommendations regarding the execution of particular tasks are made.</para>
+
+	<para>In the NEPOMUK environment, information chunks are expressed by the NAO, NIE and PIMO ontologies. In principle, every piece of information can have the character of a task.</para>
+
+	<para>Personal Task Management (PTM) helps knowledge workers to manage their personal, scarce work capacity to achieve their given goals in the desired quality. PTM focuses a personal process perspective, i.e., to manage the activities the knowledge worker performs to get the work done. Tackling information and task overload, the knowledge worker can manage the task workload so that the tasks can be executed on time, scope and budget. A core part of task management is thus enabling prioritization decisions that allow the knowledge worker to decide on what tasks to execute when, to what extent and to what cost.</para>
+
+	<para>PTM applications support knowledge workers in performing efficient task management to achieve their goals in the best possible way. PTM applications offer functionality to help the knowledge worker to manage the whole set of tasks that the knowledge worker has to accomplish. This happens in the form of a task list, as well known as to-do lists. Task lists here use lists of explicit task representations, i.e., for each task in the list, a dedicated task representation exists and contains the task information needed for the knowledge worker to identify, use and prioritize the task.</para>
+
+	<para>Bringing together PTM and PIM, the TMO is an ontology that enables the knowledge worker to organize lists of tasks in conjunction with organizing information needed to execute these tasks. Foremost, the TMO captures the knowledge worker's tasks and applications using it enable the knowledge worker to get on overview on what needs to be done and how the knowledge worker can prioritize this. In addition, the TMO supports applications to manage the information that is needed from a knowledge worker's perspective to fulfil the task. This includes for example information on who else is involved in the task and what category the task belongs to.</para>
+
+	<para>Further information on the TMO going beyond this document can be found at [<link linkend="tmo:sec-references">TASKMODEL</link>]. This includes background information on task management, state of the art in task modelling, modelling considerations in the personal task space and explains modelling decisions taken for the TMO.</para>
+</section>
+
+<section id="tmo:sec-scope-and-covered-use-cases" xmlns="http://docbook.org/ns/docbook">
+    <title>Scope and Covered Use Cases</title>
+	
+	<para>The TMO is designed for use as part the of PIM platform Nepomuk. The respective Nepomuk Ontology framework provides ontologies for conducting personal information management in particular on the desktop, see [<link linkend="tmo:sec-references">PIMO</link>], [<link linkend="tmo:sec-references">NIE</link>]. The TMO is an extension of the PIMO ontology focusing on tasks and the support of PTM applications. However, applications can use the TMO as well without accessing this Nepomuk ontology framework to support personal task management. Using Nepomuk, the knowledge worker and application developer gain the support for desktop integration, i.e., the integration with information models that represent the entities of a desktop, like e.g. emails and files.</para>
+	
+	<para>The TMO covers with its task model a number of task management use cases that can be implemented in task management applications. The TMO provides the conceptual basis for these use cases. These use cases are:</para>
+	
+	<itemizedlist>
+		<listitem>
+			Personal Task Management - Personal Task Management consists of several parts.
+			<itemizedlist>
+				<listitem>Basic task handling - Basic task handling deals with organizing a knowledge workers task, e.g., creating and populating a task.</listitem>
+				<listitem>Task list management - Task list management deals with the knowledge worker handling a personal to-do list where the Knowledge worker manages a list of personal tasks that are due for execution or are already executed.</listitem>
+				<listitem>Task priority management - Task priority management helps the knowledge worker to maintain the priorities coming with a task.</listitem>
+				<listitem>Task time management - Task time management focuses on the time needed to execute a task and the knowledge worker can assign a task due date to manage the time-related aspects of work.</listitem>
+				<listitem>Task planning - Task planning helps the knowledge worker to structure the workload and perform work decomposition, i.e., breaking down and categorizing tasks.</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem>Task Information Management - Task Information Management helps the knowledge worker to collect and associate information needed for executing a task. This includes task tags to group tasks, information object attachments to connect tasks to, e.g., emails and files, and as social aspect persons involved in a task.</listitem>
+		<listitem>Social Task Management - Social Task Management focuses on collaboration in the task domain. This means, that knowledge workers can delegate tasks to each other, can perform and task tracking and conduct information sharing.
+		</listitem>
+	</itemizedlist>
+	<para>In addition, knowledge workers and application developers can extend the TMO to cover further use cases. These TMO extensions (TMOE) can for example support experience and knowledge management for tasks with task patterns [<link linkend="tmo:sec-references">TASKMODEL</link>].</para>	
+</section>
+
+<section id="tmo:sec-tmo-modelling" xmlns="http://docbook.org/ns/docbook">
+	<title>TMO Modelling</title>
+	
+	<para>The core class of the TMO is the class tmo:Task. The tmo:Task is a subclass of pimo:ProcessConcept. The inheritance hierarchy of the <xref linkend="tmo:Task"/> is shown in the figure below.</para>
+	
+	<informalfigure>
+	<ulink url="tmo_task_pimo_subclass_part1.png">
+		<mediaobject>
+			<imageobject role="html">
+			<imagedata fileref="tmo_task_pimo_subclass_part1.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</informalfigure>
+	<informalfigure>
+	<ulink url="tmo_task_pimo_subclass_part2.png">
+		<mediaobject>
+			<imageobject role="html">
+			<imagedata fileref="tmo_task_pimo_subclass_part2.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</informalfigure>
+	
+	<para>Details of a task are represented by attributes modelled as shown in the figure below. Tasks can be grouped by means of the tmo:TaskCollection class</para>
+	
+	<informalfigure>
+	<ulink url="tmo_overview_part1.png">
+		<mediaobject>
+			<imageobject role="html">
+			<imagedata fileref="tmo_overview_part1.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</informalfigure>
+
+	<informalfigure>
+	<ulink url="tmo_overview_part2.png">
+		<mediaobject>
+			<imageobject role="html">
+			<imagedata fileref="tmo_overview_part2.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</informalfigure>
+
+	<informalfigure>
+	<ulink url="tmo_overview_part3.png">
+		<mediaobject>
+			<imageobject role="html">
+			<imagedata fileref="tmo_overview_part3.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</informalfigure>
+	
+	<para>There are some classes that have been modelled according to a role based modelling approach. Hereby it is possible to model n-ary relations. In particular attachments, the involvement of persons and of actors and resource (furthermore referred as AbilityCarriers) and task dependencies have been modelled this way. The overviews on those four circumstances are shown in the figures below:</para>
+	
+	<figure id="tmo:fig-person-involvement">
+		<title>tmo:PersonInvolvement</title>
+	<ulink url="tmo_personinvolvement.png">
+		<mediaobject>
+			<imageobject role="html">
+				<imagedata fileref="tmo_personinvolvement.png" scale="85" />
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</figure>
+
+	<figure id="tmo:fig-ability-carrier-involvement">
+		<title>tmo:AbilityCarrierInvolvement</title>
+	<ulink url="tmo_abilitycarrierinvolvement.png">
+		<mediaobject>
+			<imageobject role="html">
+			<imagedata fileref="tmo_abilitycarrierinvolvement.png" scale="85" />
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</figure>
+	
+	<figure id="tmo:fig-attachment">
+		<title>tmo:Attachment</title>
+	<ulink url="tmo_attachment.png">
+		<mediaobject>
+			<imageobject role="html">
+			<imagedata fileref="tmo_attachment.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</figure>
+	
+	<figure id="tmo:fig-task-dependency">
+		<title>tmo:TaskDependency</title>
+	<ulink url="tmo_taskdependency.png">
+		<mediaobject>
+			<imageobject role="html">
+			<imagedata fileref="tmo_taskdependency.png" scale="85" />
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</figure>
+	
+	<para>The transmission of tasks is represented by the <xref linkend="tmo:TaskTransmission"/> class</para>
+	
+	<figure id="tmo:fig-transmission">
+	<ulink url="tmo_transmission.png">
+		<mediaobject>
+			<imageobject role="html">
+			<imagedata fileref="tmo_transmission.png" scale="85" />
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</figure>
+</section>
+
+<section id="tmo:sec-references" xmlns="http://docbook.org/ns/docbook">
+	<title>References</title>
+	
+    <variablelist>
+		<varlistentry>
+		  <term>PIMO</term>
+		  <listitem>
+			<para><ulink url="http://www.semanticdesktop.org/ontologies/pimo">Personal Information Model ontology (PIMO)</ulink>, Leo Sauermann, Ludger van Elst, Knud Moller, http://www.semanticdesktop.org/ontologies/pimo</para>
+			</listitem>
+		</varlistentry>
+
+		<varlistentry>
+		  <term>NIE</term>
+		  <listitem>
+			<para><ulink url="http://www.semanticdesktop.org/ontologies/nie">NEPOMUK Information Element Ontology (NIE)</ulink>, Antoni Mylka, Leo Sauermann, Michael Sintek, Ludger van Elst, http://www.semanticdesktop.org/ontologies/nie</para>
+		  </listitem>
+		</varlistentry>
+
+		<varlistentry>
+		  <term>TASKMODEL</term>
+		  <listitem>
+			<para><ulink url="http://nepomuk.semanticdesktop.org/xwiki/bin/download/Main1/D3-1/D3.1_v10_NEPOMUK_Task_Management_Model.pdf">Task Management Model (TMO)</ulink>, Olaf Grebner, Ernie Ong, Uwe Riss, Marko Brunzel, Ansgar Bernardi, Thomas Roth-Berghofer, http://nepomuk.semanticdesktop.org/xwiki/bin/download/Main1/D3-1/D3.1_v10_NEPOMUK_Task_Management_Model.pdf</para>
+		  </listitem>
+		</varlistentry>
+	</variablelist>
+</section>

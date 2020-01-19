@@ -1,0 +1,763 @@
+<section id="ncal:sec-ontology-visualization" xmlns="http://docbook.org/ns/docbook">
+	<title>Ontology Visualization</title>
+	
+	
+	<figure id="ncal:fig-ncal-ontology-visualization">
+	<ulink url="ncal-ontology-visualization.png">
+		<mediaobject>
+			<imageobject role="html">
+				<imagedata fileref="ncal-ontology-visualization.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</figure>
+	
+	
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="ncal:sec-introduction">
+  <title>Introduction</title>
+  <para>Nepomuk Calendar Ontology (NCAL) has been designed to
+  describe various entries usually found in calendars. These
+  include events, tasks (todo's) and journal entries. It is an
+  adaptation of the well known iCalendar specification published
+  in 2002 as RFC 2445 [<link linkend="ncal:sec-references">RFC2445</link>]. This section begins with an
+  outline of the previous attempts in adapting RFC 2445 to RDF.
+  It gives an account of the issues with existing ICAL ontologies
+  that make them unusable within Nepomuk. Following subsections
+  describe the process adopted for the creation of NCAL and it's
+  result - the classes and properties of the ontology. Proposed
+  solutions to problems found in existing ICAL ontologies are
+  presented. At the end, a list of known limitations of NCAL is
+  given, followed by ideas for future work on improving
+  NCAL.</para>
+  <para>The following sections make use of the vocabulary
+  specified in RFC 2445. The reader is advised to get acquainted
+  with it before continuing reading. A nice outline of the
+  structure of iCalendar specification can be found in [
+  <link linkend="ncal:sec-references">TIMBLICAL</link>].</para>
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="ncal:sec-history">
+  <title>Previous Work</title>
+  <para>The need for a common vocabulary for describing
+  calendaring information in RDF has been recognized early within
+  the 
+  <ulink url="http://www.w3.org/2001/sw/interest/">W3C RDF
+  Interest Group</ulink>. Organized activity has been started on
+  9th of October 2002 at the SWAD-Europe Workshop on the Semantic
+  web and Calendaring in Bristol, UK. The report from this
+  workshop [<link linkend="ncal:sec-references">SWAD37</link>] mentions earlier attempts by Tim
+  Berners-Lee ([<link linkend="ncal:sec-references">TIMBLICAL</link>]), Arick and Miller ([
+  <link linkend="ncal:sec-references">HYBRIDICAL</link>]) and Dan Connoly ([
+  <link linkend="ncal:sec-references">ANOTHERICAL </link>], [
+  <link linkend="ncal:sec-references">PALMICAL</link>]).</para>
+  <para>Work continued through a series of meetings. Numerous
+  discussions were held using the www-rdf-calendar@w3.org mailing
+  list. The archive is available at 
+  <ulink url="http://lists.w3.org/Archives/Public/www-rdf-calendar/">
+  here</ulink>and the #rdfig channel on the Freenode IRC network.
+  Logs of these discussions are available 
+  <ulink url="http://chatlogs.planetrdf.com/rdfig/">
+  here</ulink>.</para>
+  <para>After three years of research the group has produced two
+  ontologies in OWL and a W3C Interest Group Note ([
+  <link linkend="ncal:sec-references">ICALNOTE</link>]) describing the design
+  decisions that have been made. The first ontology, hosted under
+  
+  <ulink url="http://www.w3.org/2002/12/cal/ical">
+  http://www.w3.org/2002/12/cal/ical</ulink>is more popular,
+  semantic web enthusiasts try to publish their calendars with
+  this vocabulary, even though the creators themselves have
+  abandoned it in favour of a newer one, hosted under 
+  <ulink url="http://www.w3.org/2002/12/cal/icaltzd">
+  http://www.w3.org/2002/12/cal/icaltzd</ulink>. The main
+  difference between these two lies in treatment of timezones.
+  Many entities in the iCalendar data model contain various dates
+  and times. They are usually accompanied by a timezone that
+  should serve as a context to interpret them. The older ontology
+  represents this fact with a 'tzid' property more in-line with
+  the original representation. The newer one uses a controversial
+  approach of representing the timezones as datatypes for
+  literals.</para>
+  <para>In the rest of this section the older ontology will be
+  referred to as ICAL ontology, whereas the newer one will be
+  called the ICALTZD ontology to avoid confusion. TZD stands for
+  ``TimeZones as Datatypes''. Whenever concrete properties from
+  the ICAL ontology are referred, they will be given with the
+  'ical' prefix (e.g. ical:attendee). ICALTZD properties will use
+  the 'icaltzd' prefix (e.g. icaltzd:component).</para>
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="ncal:sec-drawbacks">
+  <title>Drawbacks of the ICALTZD ontology</title>
+  <para>The ICALTZD ontology is newer and better developed.
+  Therefore it was chosen to serve as a the model for NCAL.
+  Numerous drawbacks have been identified in it though. This
+  section gives an account of them. It is intended to provide
+  justification for the decision not to use ICALTZD
+  directly.</para>
+  <para>Most of the deficiencies of ICALTZD have been caused by
+  the automatic process of its creation. It is automatically
+  generated from the text of the RFC itself using a combination
+  of a python script and an XSLT transformation. (Refer to [
+  <link linkend="ncal:sec-references">ICALNOTE</link>] for details). This process
+  overlooks many details that cannot be extracted with a simple
+  analysis of the structure of the document. They would require
+  deeper understanding of the text itself, which is certainly
+  beyond the capabilities of such simple tools. Following
+  subsections explain four kinds of problems encountered when
+  trying to use ICALTZD within Nepomuk: underspecification, bugs,
+  superfluous elements and pieces of design that certainly cannot
+  be considered errors in themselves but are nevertheless against
+  the 
+  <link linkend="nie:sec-basicdecisions">
+  guidelines for NIE</link>.</para>
+  <section id="ncal:sec-underspecification">
+    <title>Underspecification</title>
+    <para>ICALTZD is underspecified. There are many places, where
+    certain structural information is not explicitly stated
+    within the ontology. The user needs to be aware of the
+    'conventions' adopted by the authors.</para>
+    <section id="ncal:sec-propertyvaluesandparams">
+      <title>Property values and parameters</title>
+      <para>RFC 2445 specifies a generic model where each
+      calendar property can be adorned with any number of
+      parameters. Some properties (e.g. UID) don't accept any
+      parameters. These can easily be modelled in RDF. Their
+      ranges can be set to appropriate XML Schema datatypes.
+      Other properties (e.g. Attendee) accept a number of
+      parameters. They cannot be easily modelled in RDF because
+      literals cannot serve as subjects of RDF triples. An
+      intermediary node is necessary.</para>
+      <para>Using intermediary nodes to express property values
+      poses two problems. The first one being the type of that
+      node. ICALTZD uses untyped blank nodes for this purpose.
+      This is against the recomendations for using property
+      domains and ranges within Nepomuk Representational Language
+      (See [
+      <link linkend="ncal:sec-references">NRLSPEC</link>] sec. 2.3.1). The
+      Closed-World assumption adopted in NRL implies that domains
+      and ranges are constrains that must be met. Untyped
+      resources cannot be related in NRL.</para>
+      <para>Whenever such intermediary blank nodes are used as
+      property values, the ICALTZD ontology doesn't specify the
+      ranges of those properties at all. (e.g. in icaltzd:attach,
+      icaltzd:dtend, icaltzd:dtstart, icaltzd:due,
+      icaltzd:duration, icaltzd:exdate, icaltzd:exdate,
+      icaltzd:rdate, icaltzd:recurrenceId, icaltzd:trigger,
+      icaltzd:tzurl, icaltzd:url). It is worth noting that in
+      some cases the ICALTZD ontology simplifies the model
+      defined in RFC 2445 and discards some parameters. This
+      happens for instance in 8 properties that use parameters
+      for alternate representation (ALTREP) and language
+      (LANGUAGE) namely: icaltzd:comment, icaltzd:description,
+      icaltzd:location, icaltzd:resources, icaltzd:summary and
+      icaltzd:contact. These simplifications are not documented
+      anywhere. They can only be learned by observing the example
+      files provided with the ontology.</para>
+      <para>An attempt has been made to develop a utility that
+      would convert raw iCalendar files to an RDF representation
+      conforming to the ICALTZD ontology. It was developed as an
+      element of the 
+      <ulink url="http://aperture.sourceforge.net">Aperture
+      Framework</ulink>. Due to the underspecification of
+      properties the developers had to document the conventions
+      by themselves. Each property has been characterised with
+      following attributes:</para>
+      <itemizedlist>
+        <listitem>
+          <para>Possible parameters (according to the RFC 2445).
+          Information if those parameters are allowed in the RDF
+          representation or not, which is the case if the model
+          has been simplified.</para>
+        </listitem>
+        <listitem>
+          <para>Information if a property points to a literal
+          value (in which case all parameters specified in RFC
+          2445 are discarded) or to an untyped blank node.</para>
+        </listitem>
+        <listitem>
+          <para>URI of the property.</para>
+        </listitem>
+        <listitem>
+          <para>URI of a property used to link the intermediary
+          blank node with the actual value of the
+          property.</para>
+        </listitem>
+      </itemizedlist>
+      <para>The last of those four characteristics is especially
+      important since it constitutes the second of those two
+      problems mentioned above. RFC 2445 allows for a property to
+      have multiple value types. The actual type is indicated by
+      a special parameter (VALUE). It is difficult to model this
+      behavior in a general case. ICALTZD makes no attempt to
+      formalize it and forces to user to learn the conventions
+      expressed in examples.</para>
+      <para>Property parameters are modelled in ICALTZD as rdf
+      properties with no domains and ranges specified at all.
+      Because of that each parameter can just as well be applied
+      to any property. The same applies to parameters of
+      recurrence rules (RRULE and EXRULE property values). Their
+      usage must be learned from the RFC 2445 or from the example
+      files. The ontology itself contains too little
+      information.</para>
+    </section>
+    <section id="ncal:sec-domainscalendarproperties">
+      <title>Domains of calendar properties</title>
+      <para>RFC 2445 specifies four properties that apply
+      directly to the central Vcalendar object. These are
+      icaltzd: prodid, icaltzd: calscale, icaltzd: method and
+      icaltzd: version. They don't have their domain specified at
+      all.</para>
+    </section>
+    <section id="ncal:sec-missingtypes">
+      <title>Missing Entity Types</title>
+      <para>As said before many properties that accept parameters
+      deserve to have a special classes as their ranges. From
+      these four deserve to be mentioned separately. They are
+      different from other structured values because they are
+      described with their own vocabulary i.e. not with 'normal'
+      ical parameters as defined in sec. 4.2 of RFC 2445.</para>
+      <para>RFC 2445 defines the concept of a timezone
+      observance. Each timezone can have two observances -
+      daylight and standard. This models a common practice to use
+      different time in the winter and in the summer. Properties
+      responsible for this in the ICALTZD ontology are
+      icaltzd:daylight and icaltzd:standard. They don't have
+      their ranges specified, even though RFC 2445 treats them as
+      separate subcomponents within the timezone component. They
+      are marked with a separate pair of BEGIN and END
+      constructs. The ontology makes no provision for it being a
+      separate class.</para>
+      <para>A similar situation occurs with recurrence rules i.e.
+      values of RRULE and EXRULE properties. They define patterns
+      for the repetition of a calendar event. ICALTZD doesn't
+      mention them specifically. They are expressed as untyped
+      blank nodes. Recurrence rule properties are attached to
+      untyped blank nodes.</para>
+      <para>There are also two properties that don't accept any
+      parameters, but their values are structured. That is a
+      comma separated value of the GEO property, which signifies
+      coordinates of a point, and a semicolon-separated value of
+      the REQUEST-STATUS property.</para>
+    </section>
+    <section id="ncal:sec-nolimitedvocabulary">
+      <title>No limited vocabulary</title>
+      <para>Many properties and parameters defined in RFC 2445
+      (e.g. CLASS, STATUS, TRANSP, PARTSTAT, RELTYPE etc.) have a
+      limited set of values. This is not expressed in the ICALTZD
+      ontology. The user needs to learn those acceptable values
+      by him- or herself in order to generate RDF that can be
+      exported to a valid iCalendar file.</para>
+    </section>
+    <section id="ncal:sec-vaguecomponentproperty">
+      <title>Vague semantics of the component property</title>
+      <para>ICALTZD defines an icaltzd: component property to
+      link the calendar with the components it contains. It is
+      also used to link the events with their alarms but even
+      though Timezone Observances also have their own BEGIN and
+      END constructs, the icaltzd:component property is not used
+      there. These usage patterns have been extracted from the
+      example files provided by the authors of the ICALTZD
+      ontology. The ontology itself doesn't define any domain or
+      range for the icaltzd:component property.</para>
+    </section>
+  </section>
+  
+  <section id="ncal:sec-errors">
+    <title>Errors</title>
+    <para>Two problems have been identified when working with the
+    ICALTZD ontology. The first one concerns the domain of the
+    icaltzd:rrule property. It is defined as an anonymous owl
+    union class.</para>
+    <programlisting>&lt;rdf:Description rdf:ID="rrule"&gt;
+    &lt;rdfs:domain&gt; &lt;owl:Class
+    rdf:nodeID="DomainOf_rrule"&gt; .... &lt;/owl:Class&gt;
+    &lt;rdfs:domain&gt;
+    ...&lt;/rdf:Description&gt;</programlisting>
+    <para>We see that the nodeID construct has been used. This
+    means an identifier of a blank node. This might not have been
+    the intention of the author though since two other properties
+    icaltzd:recurrenceId and icaltzd:exdate refer to it, but they
+    do it wrong.</para>
+    <programlisting>&lt;rdf:Description rdf:ID="recurrenceId"&gt;
+    &lt;rdfs:domain&gt; &lt;owl:Class
+    rdf:about="#DomainOf_rrule"/&gt;
+    &lt;/rdfs:domain&gt;&lt;/rdf:Description&gt;</programlisting>
+    <para>This construct refers to an URI, not to a blank node.
+    The 
+    <ulink url="http://www.w3.org/RDF/Validator">W3C RDF
+    validator</ulink>interprets the first example as:</para>
+    <programlisting>subject:
+    http://www.w3.org/2002/12/cal/icaltzd#rrulepredicate:
+    http://www.w3.org/2000/01/rdf-schema#domainobject:
+    genid:UDomainOf_rrule</programlisting>
+    <para>Whereas the second example is interpreted as:</para>
+    <programlisting>subject:
+    http://www.w3.org/2002/12/cal/icaltzd#recurrenceIdpredicate:
+    http://www.w3.org/2000/01/rdf-schema#domainobject:
+    http://www.w3.org/2002/12/cal/icaltzd#DomainOf_rrule</programlisting>
+    <para>Which is clearly not the same.</para>
+    <para>The second problem with ICALTZD are multiply defined
+    ID's. The W3C RDF Validator finds 53 redefinitions of a
+    previously defined identifiers. This fact has caused problems
+    when working with the RIO 1.0 RDF Parser. It could
+    potentially cause problems with other tools, even though
+    semantically it makes no difference if a statement occurs
+    once or multiple times within an RDF document.</para>
+    <para>There are also repetitions in OWL unions that describe
+    the domains of properties.</para>
+  </section>
+  
+  <section id="ncal:sec-rangesdatatypeproperties">
+    <title>Ranges of datatype properties</title>
+    <para>An attempt has been made to model the datatypes of
+    literals that serve as property values. A set of datatypes
+    has been defined. These include icaltzd: Value_DATE-TIME,
+    icaltzd: Value_CAL-ADDRESS, icaltzd: Value_PERIOD, icaltzd:
+    Value_RECUR etc. They have been defined as rdfs: Datatype but
+    there are no additional characteristics of them. In most
+    cases they can safely be expressed with either xml schema
+    datatypes or special-purpose classes. It is worth noting that
+    the datatype for dates and times is defined twice: as
+    icaltzd: Value_DATE-TIME and icaltzd: dateTime.</para>
+  </section>
+  
+  <section id="ncal:sec-unacceptabledecisions">
+    <title>Design decisions unacceptable in Nepomuk</title>
+    <section id="ncal:sec-owl">
+      <title>OWL</title>
+      <para>The most important fact, that inhibits the usability
+      of ICALTZD within Nepomuk is that it is expressed in OWL.
+      This violates the guideline expressed in
+      <xref linkend="nie:sec-nrl"/>. Even though OWL classes and properties could
+      theoretically be interpreted as RDFS constructs, ICALTZD
+      makes use of OWL unions, which have no equivalent in
+      RDFS.</para>
+    </section>
+    <section id="ncal:sec-tzd">
+      <title>Timezones as datatypes</title>
+      <para>A second design decision that may be considered
+      controversial is the timezones-as-datatypes idea. Whenever
+      point in time is referenced it is described with a date,
+      time and a timezone. The first two parts can be expressed
+      with a single literal, formatted according to the XML
+      Schema 'dateTime' format. The timezone though is expressed
+      as the datatype of that literal. Example files provided
+      with the ICALTZD ontology contain many entries similar to
+      the following one:</para>
+      <programlisting>&lt;Vevent
+      rdf:about="#D4F0202E-2F2F-11D7-A96C-000393161A98"&gt;
+      &lt;summary&gt;#rdfig calendar meeting&lt;/summary&gt;
+      &lt;tstart
+      rdf:datatype="http://www.w3.org/2002/12/cal/tzd/Europe/London#tz"&gt;
+      2003-02-05T17:00:00 &lt;/dtstart&gt; &lt;dtend
+      rdf:datatype="http://www.w3.org/2002/12/cal/tzd/Europe/London#tz"&gt;
+      2003-02-05T18:00:00 &lt;/dtend&gt; &lt;description&gt;
+      Email www-rdf-calendar@w3.org with agenda suggestions.
+      &lt;/description&gt;&lt;/Vevent&gt;</programlisting>
+      <para>As you can see the values dtstart and dtend
+      properties have their timezones expressed as URIs. This
+      approach has following disadvantages:</para>
+      <itemizedlist>
+        <listitem>
+          <para>It relies on the timezone database provided by
+          the authors.Available 
+          <ulink url="http://www.w3.org/2002/12/cal/tzd/">
+          here</ulink>. This database was created by converting
+          the well-known 
+          <ulink url="http://www.twinsun.com/tz/tz-link.htm">
+          Olson timezone database</ulink>to RDF. This assumption
+          works as long as the timezone identifiers used in in
+          iCalendar files can easily be translated into URIs from
+          that database. This is often the case, but there are no
+          constraints specified in the RFC 2445 to reinforce that
+          claim. The timezone identifiers are plain strings. The
+          specification states that they should refer to timezone
+          definitions that within the same file. RFC 2445 doesn't
+          mention any centralised timezone database. There are
+          perfectly correct iCalendar files that use timezone
+          identifiers that cannot be easily (that is by simple
+          string operations) mapped to those from the Olson
+          database.</para>
+        </listitem>
+        <listitem>
+          <para>Instances of icaltzd:Vtimezone gathered in the
+          timezone database are not instances of rdfs:Datatype.
+          Using them as datatypes is dubious from the semantic
+          point of view.</para>
+        </listitem>
+        <listitem>
+          <para>This approach makes it impossible to specify the
+          datatype in the ontology itself. The user must learn to
+          use this convention from other sources.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+  
+  <section id="ncal:sec-alignmentnco">
+    <title>Alignment with contact ontology</title>
+    <para>Tight integration between ontologies has been
+    identified as one of the core requirements for NIE (see 
+    <xref linkend="nie:sec-integration"/>). ICALTZD makes no references to any specific
+    ontology that would make it possible to link calendar events
+    with actual contact information about attendees and
+    organizers.</para>
+  </section>
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="ncal:sec-ncaldevelopment">
+<title>NCAL Development process</title>
+<para>Issues outlined in the previous section led to a decision
+to create a new calendaring ontology for Nepomuk. The main goal
+was to solve the problems described above while retaining
+compatibility with Nepomuk guidelines.</para>Development of NCAL
+began with the ICALTZD ontology. A Java program has been written
+that transformed it into RDFS and performed some basic
+transformations. These transformations included: 
+<itemizedlist>
+  <listitem>
+    <para>
+      <xref linkend="ncal:sec-ncaldevelopment" />
+    </para>
+  </listitem>
+  <listitem>
+    <para>Solving the problem with the domain of rrule property.
+    See</para>
+  </listitem>
+  <listitem>
+    <para>
+      <xref linkend="ncal:sec-errors" />
+    </para>
+  </listitem>
+  <listitem>
+    <para>Adding the TimezoneObservance class and including it in
+    domains of appropriated properties.</para>
+  </listitem>
+  <listitem>
+    <para>Removing the cardinality restrictions from class
+    definitions.</para>
+  </listitem>
+  <listitem>
+    <para>Converting the owl unions to appropriate superclasses
+    and adding the rdfs:subClassOf links.</para>
+  </listitem>
+  <listitem>
+    <para>Changing OWL classes and properties into RDFS classes
+    and properties.</para>
+  </listitem>
+  <listitem>
+    <para>Converting all property ranges to XML Schema
+    datatypes</para>
+  </listitem>
+  <listitem>
+    <para>Creating the RecurrenceRule class, adding it as a range
+    of icaltzd:rrule and icaltzd:exrule properties. Setting the
+    domain of all recurrence rule parameters
+    appropriately.</para>
+  </listitem>
+  <listitem>
+    <para>Setting the domain of all four Vcalendar properties
+    correctly.</para>
+  </listitem>
+</itemizedlist>
+<para>It became clear that some properties require special
+classes as their ranges. They would provide explicit hooks to
+attach the property parameters. In order to get an overview of
+the needs the definitions of properties in RFC 2445 have been
+examined carefully. A table has been created with basic
+information about each property. It had following columns:</para>
+<itemizedlist>
+  <listitem>
+    <para>Name of the property.</para>
+  </listitem>
+  <listitem>
+    <para>Domain of the property.</para>
+  </listitem>
+  <listitem>
+    <para>Default type of the property value.</para>
+  </listitem>
+  <listitem>
+    <para>Additional possible types of the property value (does
+    the property accept the VALUE parameter).</para>
+  </listitem>
+  <listitem>
+    <para>Does the value accept the timezone identifier
+    parameter?</para>
+  </listitem>
+  <listitem>
+    <para>Other parameters (apart from VALUE and TZID).</para>
+  </listitem>
+  <listitem>
+    <para>Possible values. (If the property has a limited set of
+    possible values).</para>
+  </listitem>
+  <listitem>
+    <para>Multiplicity. Whenever the RFC mentioned the fact that
+    a property can be specified multiple times (or only once), or
+    that it can have many comma-separated values - this fact was
+    recorded.</para>
+  </listitem>
+  <listitem>
+    <para>Other important information.</para>
+  </listitem>
+</itemizedlist>
+<para>This table quickly visualised the actual relations between
+properties and parameters. It enabled us to divide the ical
+properties into six groups. For each group an approach to
+represent it in RDF has been chosen.</para>
+<itemizedlist>
+  <listitem>
+    <para>Properties that accept the ALTREP and LANGUAGE
+    parameters. It has been decided that creating a separate
+    class just to have means to express the alternate
+    representation would not be an elegant solution. Therefore
+    for each property that can accept the ALTREP parameter (i.e.
+    COMMENT, DESCRIPTION, LOCATION, RESOURCES, SUMMARY and
+    CONTACT) a new 'altRep' property has been introduced (i.e. 
+    <xref linkend="ncal:commentAltRep" />, 
+    <xref linkend="ncal:descriptionAltRep" />, etc.). The LANGUAGE
+    parameter has been removed from the ontology altogether. The
+    user can express the same with language literals available in
+    RDF.</para>
+  </listitem>
+  <listitem>
+    <para>Properties that accept no parameters, but have a
+    limited set of values. This included CLASS, STATUS, TRANSP
+    and ACTION. For each a separate class has been introduced.
+    For each of those classes a set of instances has been created
+    to represent the possible values of each property.</para>
+  </listitem>
+  <listitem>
+    <para>Properties that don't accept and don't have any
+    restrictions on the set of possible values. This was the
+    simplest case. The ranges of those properties have been set
+    to an appropriate XML Schema datatype. (Apart from RRULE and
+    EXRULE, which refer to a RecurrenceRule).</para>
+  </listitem>
+  <listitem>
+    <para>Properties that refer to a Universal Coordinated Time
+    point. (COMPLETED, CREATED, DTSTAMP, LAST-MODIFIED). Their
+    ranges have been set to the dateTime datatype defined in the
+    XML Schema Definition.</para>
+  </listitem>
+  <listitem>
+    <para>Properties that refer to a time point in a concrete
+    timezone (DTEND, DUE, DTSTART, EXDATE, RDATE). The problem of
+    representing the timezone has been solved with the
+    NcalDateTime class. Its properties enable it to be used
+    whenever a DATE-TIME or DATE value is needed. It also
+    provides three ways to express the timezone - a reference to
+    a 
+    <xref linkend="ncal:Timezone" />instance or a simple
+    string.</para>
+  </listitem>
+  <listitem>
+    <para>Properties that require separate solutions. These
+    included RECURRENCE-ID, TRIGGER, FREEBUSY, ATTENDEE,
+    ORGANIZER, ATTACH, GEO, RELATED-TO. For each of those a
+    separate class has been created and added to the range of the
+    property and to the domain of appropriate parameters.</para>
+  </listitem>
+</itemizedlist></section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="ncal:sec-differences">
+  <title>Differences between NCAL and ICALTZD</title>
+  <para>The overall structure of NCAL is in most respects similar
+  to ICALTZD, which is thoroughly described in [
+  <link linkend="ncal:sec-references">ICALNOTE</link>]. NCAL only tries to clarify
+  certain underspecified points, as outlined in the sections
+  above. Following paragraphs describe two important changes that
+  break the continuity with ICALTZD.</para>
+  <section id="ncal:sec-timezones">
+    <title>Timezones</title>
+    <para>As already mentioned, NCAL introduces the NcalDateTime
+    class (see 
+    <xref linkend="ncal:NcalDateTime" />). It's purpose is to provide
+    a more elegant way to link the time values with their
+    timezones. It can also represent plain dates, which models
+    the fact that four properties have two possible value types:
+    date and date-time. It allows for a clean link between the
+    time value and the timezone (expressed with the 
+    <xref linkend="ncal:ncalTimezone" />). Since RFC states that each
+    icalendar document MUST contain exact definitions of all
+    timezones used, it can safely be assumed that all time values
+    can refer to those definitions.</para>
+  </section>
+  <section id="ncal:sec-nco">
+    <title>Alignment with NCO</title>
+    <para>According to the guidelines for NIE (see 
+    <xref linkend="nie:sec-integration"/>), it is desirable to promote integration between
+    ontologies. That's why ranges of two properties (namely: 
+    <xref linkend="ncal:attendee" />and 
+    <xref linkend="ncal:organizer" />have been equiped with links to
+    the 
+    <xref linkend="nco:Contact"/> class from the Nepomuk Contact Ontology.
+    This will facilitate integration between addressbooks and
+    calendars.</para>
+  </section>
+  <section id="ncal:sec-unionclasses">
+    <title>Union Classes</title>
+    <para>ICALTZD used OWL unions to define domains of many
+    properties. They don't have their equivalents in NRL, so
+    another solution has been adopted. Each union is now
+    represented as a separate class with whose name has been
+    generated by concatenating the names of classes that comprise
+    the union. (such as UnionOfEventFreebusy).</para>
+    <para>The reader may now feel the urge to give more
+    "meaningful" (semantic) names to the union classes. It is
+    difficult. The semantic meaning of a union class is defined
+    by the properties that have it as a domain, and it was not
+    possible for us to find a name for the Union classes based on
+    the properies, as they are too diverse.</para>
+  </section>
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="ncal:sec-knownlimitations">
+  <title>Known limitations of NCAL</title>
+  <para>Nepomuk Calendaring Ontology doesn't capture the whole
+  complexity of the data model defined by RFC 2445. Following
+  limitations have been identified.</para>
+  <itemizedlist>
+    <listitem>
+      <para>Usually in places where a limited set of values is
+      referred to, one of those values is considered default.
+      NCAL doesn't distinguish between default and non-default
+      values.</para>
+    </listitem>
+    <listitem>
+      <para>If a parameter or a property has multiple sets of
+      acceptable values depending on the context - this
+      information is lost. For example the STATUS property can
+      have different values depending on whether it has been
+      applied to a Event, a Todo or a Journal instance. NCAL
+      makes no such distinctions. All possible values are
+      represented as instances of the same class.</para>
+    </listitem>
+    <listitem>
+      <para>Sets of acceptable parameters can also differ between
+      various classes in the domain of a property (e.g. attendee
+      of an alarm cannot have any parameters). NCAL doesn't
+      capture this.</para>
+    </listitem>
+    <listitem>
+      <para>Extension tokens have been altogether ignored.</para>
+    </listitem>
+  </itemizedlist>
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="ncal:sec-references">
+  <title>References</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+        [ICALNOTE]
+      </term>
+      <listitem>
+        <para>
+        <ulink url="http://www.w3.org/TR/rdfcal/">Rdf calendar -
+        an application of the resource description framework to
+        icalendar datal</ulink>, Dan Connolly and Libby Miller,
+        W3C Interest Group Note 29 September 2005
+        http://www.w3.org/TR/rdfcal/</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <variablelist>
+    <varlistentry>
+      <term>
+        [HYBRIDICAL]
+      </term>
+      <listitem>
+        <para>
+        <ulink url="http://www.ilrt.bris.ac.uk/discovery/2001/06/schemas/ical-full/hybrid.rdf">
+        Hybrid ical rdf schema</ulink>, Michael Arick and Libby
+        Miller
+        http://www.ilrt.bris.ac.uk/discovery/2001/06/schemas/ical-full/hybrid.rdf</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <variablelist>
+    <varlistentry>
+      <term>
+        [TIMBLICAL]
+      </term>
+      <listitem>
+        <para>
+        <ulink url="http://www.w3.org/2000/01/foo">A quick look
+        at icalendar</ulink>, Tim Berners-Lee
+        http://www.w3.org/2000/01/foo</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <variablelist>
+    <varlistentry>
+      <term>
+        [ANOTHERICAL]
+      </term>
+      <listitem>
+        <para>
+        <ulink url="http://www.w3.org/2000/10/swap/pim/ical.rdf">
+        Another icalendar model</ulink>, Dan Connoly
+        http://www.w3.org/2000/10/swap/pim/ical.rdf</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <variablelist>
+    <varlistentry>
+      <term>
+        [PALMICAL]
+      </term>
+      <listitem>
+        <para>
+        <ulink url="http://www.w3.org/2000/08/palm56/datebook">
+        Palm datebook</ulink>, Dan Connoly
+        http://www.w3.org/2000/08/palm56/datebook</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <variablelist>
+    <varlistentry>
+      <term>
+        [RFC2445]
+      </term>
+      <listitem>
+        <para>
+        <ulink url="http://www.ietf.org/rfc/rfc2445.txt">Internet
+        calendaring and scheduling core objects
+        specification</ulink>, Frank Dawson and Derik Stenerson
+        http://www.ietf.org/rfc/rfc2445.txt</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <variablelist>
+    <varlistentry>
+      <term>
+        [SWAD37]
+      </term>
+      <listitem>
+        <para>
+        <ulink url="http://www.w3.org/2001/sw/Europe/reports/dev_workshop_report_2/">
+        Swad-europe deliverable 3.7: Developer workshop report 2
+        - semantic web calendaring</ulink>, Libby Miller
+        http://www.w3.org/2001/sw/Europe/reports/dev_workshop_report_2/</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <variablelist>
+    <varlistentry>
+      <term>
+        [NRLSPEC]
+      </term>
+      <listitem>
+        <para>
+        <link linkend="nrl">
+        Nepomuk Representational Language (NRL) Vocabulary
+        Specification.</link>, Nepomuk Task-Force Ontologies,
+        http://www.semanticdesktop.org/ontologies/nrl</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</section>

@@ -1,0 +1,14 @@
+<authorgroup xmlns="http://docbook.org/ns/docbook">
+  <author>
+    <personname>
+      <firstname>Leo</firstname>
+      <surname>Sauermann</surname>
+    </personname>
+    <affiliation>
+      <org>
+        <orgname>DFKI</orgname>
+      </org>
+    </affiliation>
+    <email>leo.sauermann@dfki.de</email>
+  </author>
+</authorgroup>

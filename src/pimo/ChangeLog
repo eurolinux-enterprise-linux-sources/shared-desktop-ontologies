@@ -1,0 +1,24 @@
+This is the log of changes made to the Nepomuk Personal Information Model vocabulary.
+This log begins with 29.10.2007, as the PIMO steers towards finalization:
+
+The developers do their best to record all changes made to the ontology in this 
+file but due to human error, some omissions may have crept in here.
+
+13.12.2007 (Leo Sauermann), more changes 
+- Added all known open issues to the document.
+- Commented out Knud's notes when it seems they have been addressed already.
+- Added the role OrganizationMember as an example role.
+- Removed attendingPerson from the Attendee role, it is superflous as already represented using pimo:roleHolder.
+- Moved occurrence, refoccurrence, groundingoccurrence from classorthing to thing.
+
+13.12.2007 (Leo Sauermann)
+- Moved PhysicalObject to Locatable
+- Removed Thing as superclass from classes that are indirectly Things: Organization, Person, PhysicalObject
+- Added documentation to Project
+- Removed metaCreationSupportedBy which can be expressed with occurrence and groundingOccurrence
+- renamed groundingForDeletedThing to groundingForDeletedThing and refined documentation
+- hasDeprecatedRepresentation: more documentation
+
+29.10.2007:
+- some dependencies on NIE were outdated. Replaced with current version from 
+  https://dev.nepomuk.semanticdesktop.org/repos/trunk/ontologies/nie/output

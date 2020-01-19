@@ -1,0 +1,26 @@
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix nco:      <http://www.semanticdesktop.org/ontologies/2007/03/22/nco#> .
+@prefix nfo:	  <http://www.semanticdesktop.org/ontolgoies/2007/03/22/nfo#> .
+@prefix : <http://john.co.uk/example#> .
+
+
+:JohnContact a nco:Contact;
+	nco:nameGiven "John" ;
+	nco:nameFamily "Smith" ;
+	nco:hasPostalAddress [
+		a nco:PostalAddress ;
+ 		nco:country "UK" ;
+		nco:region "Greater London" ;
+		nco:locality "London" ;
+		nco:streetAddress "Oxford Street 5"
+	] ;
+	nco:hasEmailAddress [
+		a nco:EmailAddress ;
+		nco:emailAddress "john@smith.co.uk" ;
+		nco:contactMediumComment "Private Email"
+	] ;
+	nco:key [
+		a nfo:Attachment ;
+		nfo:fileName "john-public-key.pub" ;
+	] .

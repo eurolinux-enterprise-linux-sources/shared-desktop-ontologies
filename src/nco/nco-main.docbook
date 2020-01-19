@@ -1,0 +1,235 @@
+<section id="nco:sec-ontology-visualization" xmlns="http://docbook.org/ns/docbook">
+	<title>Ontology Visualization</title>
+	
+	
+	<figure id="nco:fig-nco-ontology-visualization">
+	<ulink url="nco-ontology-visualization.png">
+		<mediaobject>
+			<imageobject role="html">
+				<imagedata fileref="nco-ontology-visualization.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+		</ulink>
+	</figure>
+	
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="nco:sec-introduction">
+  <title>Introduction</title>
+  <para>The purpose of the Nepomuk Contact Ontology (NCO) is to
+  describe contact information. It is one of the core elements of
+  every Personal Information Management system and Nepomuk is no
+  exception. Origins of this ontology can be traced back to VCARD
+  specification published in [<link linkend="nco:sec-references">RFC2426</link>]. The first attempt to convert
+  RFC 2426 to RDF was made by Renato Ianella and published in a
+  W3C working group note[<link linkend="nco:sec-references">VCARDRDF</link>]. This ontology doesn't meet
+  Nepomuk requirements though. Most of the properties don't have
+  their domains and ranges set. It uses certain modelling
+  techniques that result in untyped blank nodes. Those few range
+  constraints that have been set are violated in the examples
+  provided with the specification document.</para>
+  <para>All of this led to a decision to create a new ontology.
+  This opportunity has been used to fill in the missing domain
+  and range constraints and to expand the ontology with the
+  concepts of Roles and arbitrary contact media. It came at a
+  cost of reduced compatibility with the VCARD specification. The
+  goal was to allow for lossless import of vCard data. Exporting
+  vCard files might require discarding some information, since
+  NCO is more expressive.</para>
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="nco:sec-scope">
+ <title>Scope</title>
+  <para>
+    The meaning of the term 'Contact' in
+    NCO is quite wide. It is every piece of data that identifies
+    an entity or provides means to communicate with it. This
+    definition has two aspects - identification and
+    communication. NCO covers both of them.
+  </para>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="scopeOfNco.png" />
+      </imageobject>
+    </mediaobject>
+  <para>
+    A very high level diagram of the scope
+    of NCO is outlined in the figure above. It has two axes:
+    content and complexity. The vertical one refers to the
+    various kinds of entities mentioned in the definition of a
+    Contact. They include people and organizations but in a
+    general case anything that can be contacted, can be
+    represented by an instance of the Contact class. This
+    generality is justified by the fact, that in many cases
+    automatic agents can be contacted with various means. Many
+    companies operate automatic IVR systems the users may call to
+    obtain information or place orders. Emails are sent by
+    various software systems to notify the recipient of some
+    event. In all of these cases, a user might want to reprent
+    such entities on a contact list, even though they are neither
+    people, nor organizations.
+  </para>
+  <para>
+    The horizontal axis represents the
+    broad spectrum of use cases for this ontology. The left end
+    is intended to cover simple bits of information about
+    contacts. Such information is usually found in various places
+    on a desktop. Recipients of emails, authors of documents,
+    attendees of calendar events. All of these small pieces of
+    data refer to Contacts, even though they are not parts of a
+    typical addressbook or a Contact list.
+  </para>
+  <para>
+    The rightmost end of the horizontal
+    axis represents cases where a Contact refers to an entry in
+    an Addressbook. There are numerous applications that allow
+    the user to manage a list of contacts. They usually store
+    many pieces of data. In many cases a single person appears in
+    various roles, as a private person and as an employee of a
+    company or an organization. These roles are usually connected
+    with their own addresses (private and business), telephone
+    numbers, email addresses etc. Cases when a person is
+    affiliated with multiple organizations make the matters even
+    more complicated. NCO tries to provide means to express this
+    role-based approach.
+  </para>
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="nco:sec-description">
+  <title>Description of classes and properties</title>
+  <para>
+    The most important classes are
+    outlined in the Figure below.
+  </para>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="ncoMainClassDiagram.png" />
+    </imageobject>
+  </mediaobject>
+  <para>
+  <xref linkend="nco:Contact" /> is the core class of NCO. It provides
+  various properties for the purpose of identifying an entity.
+  They include mostly names, either as one string -
+  (<xref linkend="nco:fullname" /> or split into constituent parts -
+  <xref linkend="nco:nameFamily" />, 
+  <xref linkend="nco:nameGiven" /> etc).</para>
+  <para>The communication information is expressed with
+  subclasses of the 
+  <xref linkend="nco:ContactMedium" /> class. They provide various
+  means of communication. An entire hierarchy of various
+  ContactMedia has been presented. Available subclasses include: 
+  <xref linkend="nco:PostalAddress" />, 
+  <xref linkend="nco:PhoneNumber" />, 
+  <xref linkend="nco:EmailAddress" />, and 
+  <xref linkend="nco:IMAccount" />. Each medium is equipped with
+  specific properties. For instance the PostalAddress can be
+  split into various parts, an IMAccount has an 
+  <xref linkend="nco:imID" />, a 
+  <xref linkend="nco:imStatus" /> and a status message 
+  <xref linkend="nco:imStatusMessage" />.</para>
+  <para>A single 
+  <xref linkend="nco:Contact" /> has one default role (expressed by
+  the fact that the Contact class is a subclass of 
+  <xref linkend="nco:Role" />. This makes it easier to use Contacts
+  in places where little information is available (leftmost end
+  of the complexity axis). When contacts are extracted from
+  places where they are described in more detail (rightmost end
+  of the complexity axis) the distinction between multiple roles
+  can be expressed. NCO provides means to describe contact
+  information to a person 
+  (<xref linkend="nco:PersonContact" />) class that is affiliated 
+  (<xref linkend="nco:Affiliation" />) with multiple Organizations 
+  (<xref linkend="nco:OrganizationContact" />).</para>
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="nco:sec-usage">
+  <title>Usage</title>
+  <para>
+  As already mentioned the definition of a
+  Contact is intentionally broad. NCO is intended to cover a wide
+  array of use cases. The most obvious one is description of
+  entries found in addressbooks. There are many applications that
+  work with such data. The list includes, but is certainly not
+  limited to email clients, calendaring applications, standalone
+  addressbook applications and online social services
+  (like
+  <ulink url="http://www.orkut.com">Orkut</ulink> or 
+  <ulink url="http://www.linkedin.com">LinkedIn</ulink>).</para>
+  <para>Addressbook entries are not the only way to use NCO.
+  Instances of the Contact class may come up in many other
+  places, as senders and receivers of emails, as meeting
+  attendees, as fileOwners etc. It is considered a best practice
+  to use an instance of the Contact class wherever some
+  contactable entity is referenced, even when the point where
+  this reference is made contains little other information. See
+  the list of properties that have 
+  <xref linkend="nco:Contact" /> as their domain for ideas.</para>
+  <para>The NCO is a good example of the trend towards 
+  <link linkend="nie:sec-integration">
+  ontology integration</link>. To illustrate the effect of it
+  let's consider a contact disambiguation tool. It would browse
+  all instances of the class Contact and aggregate those that
+  refer to one Person (by email address or various forms of
+  name). Such a tool wouldn't need to be aware of all properties
+  in all ontologies that even though they have a plain String as
+  their range - actually indicate a name of a person. If we left
+  the names and email addresses as plain string values of
+  specialized properties - it would become much more difficult to
+  assign them to appropriate people automatically.</para>
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="nco:sec-examples">
+ <title>Examples</title>
+  <itemizedlist>
+    <listitem>
+      <para>
+      <ulink url="nco-contact.ttl" /> A simple NCO Contact.
+      It represents an individual, with some contact media
+      affiliated with an organization. His work address and
+      telephone is also expressed.</para>
+    </listitem>
+    <listitem>
+      <para>
+      <ulink url="nco-key.ttl" /> Demonstrates how to attach
+      information about public keys. NCO doesn't have any
+      particular vocabulary for elements of public keys. A key is
+      treated as an attachment file. Future NIE extensions may
+      add more expressive vocabulary for this.</para>
+    </listitem>
+    <listitem>
+      <para>
+      <ulink url="nco-photossounds.ttl" /> Demonstrates how
+      to attach information about photos and sounds to a contact.
+      They are also expressed as attachments, but NIE provides
+      vocabulary that can be used to interpret those attachments
+      as InformationElements of a concrete type.</para>
+    </listitem>
+  </itemizedlist>
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="nco:sec-references">
+ <title>References</title>
+  <variablelist>
+    <varlistentry>
+      <term>VCARDRDF</term>
+      <listitem>
+        <para>
+        <ulink url="http://www.w3.org/TR/vcard-rdf">Representing
+        vcard objects in rdf/xml</ulink>, Renato Ianella, W3C
+        Note 22 February 2001
+        http://www.w3.org/TR/vcard-rdf</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <variablelist>
+    <varlistentry>
+      <term>RFC2426</term>
+      <listitem>
+        <para>
+        <ulink url="http://www.ietf.org/rfc/rfc2426.txt">vcard
+        mime directory profile</ulink>, Frank Dawson and Tim
+        Howes http://www.ietf.org/rfc/rfc2426.txt</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</section>

@@ -1,0 +1,98 @@
+<section id="nfo:sec-ontology-visualization" xmlns="http://docbook.org/ns/docbook">
+	<title>Ontology Visualization</title>
+	
+	
+	<figure id="nfo:fig-nfo-ontology-visualization">
+	<ulink url="nfo-ontology-visualization.png">
+		<mediaobject>
+			<imageobject role="html">
+				<imagedata fileref="nfo-ontology-visualization.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</figure>
+	
+	
+</section>
+
+  <section xmlns="http://docbook.org/ns/docbook" id="nfo:sec-introduction">
+    <title>Introduction</title>
+    <para>Nepomuk File Ontology (NFO) is one of the fundamental
+    parts of NIE. It deals with files and other desktop resources.
+    Files are understood as sequences of bytes stored in a
+    Filesystem or on a Network. It provides subclasses both of a
+    DataObject and an InformationElement. A basic hierarchy of
+    FileDataObject subclasses is provided. It includes a 'normal'
+    FileDataObject, that usually resides on a typical filesystem,
+    but also allows for other kinds of files - those embedded in,
+    or attached to other data items, as well as deleted and stored
+    in a trash folder. This hierarchy is by no means complete. More
+    complete taxonomies, that either add additional FileDataObject
+    subclasses or extend ones provided in this ontology may appear
+    in future.</para>
+  </section>
+  
+  <section xmlns="http://docbook.org/ns/docbook" id="nfo:sec-filedataobject">
+    <title>FileDataObject</title>
+    <para>The cornerstone of the NFO is the 
+    <xref linkend="nfo:FileDataObject" /> class. It represents files -
+    finite sequences of bytes available from some durable storage
+    medium. This definition explicitly exludes streams (which are
+    potentially infinite) but includes web documents and other
+    resources resolvable via a URL. As mentioned before there are
+    various types of files. They are reflected in the hierarchy of
+    subclasses of the File class. This hierarchy is expected to
+    grow when users add new types of files relevant to their
+    work.</para>
+    <para>One special case are web documents that are retrieved through
+    a web server and could potentially be created on-the-fly. These
+    are identified via <xref linkend="nfo:WebDataObject" />.</para>
+  </section>
+
+  <section xmlns="http://docbook.org/ns/docbook" id="nfo:sec-folders">
+    <title>Folders and Compressed Files</title>
+    <para>Each file on a hard disk is usually contained within a
+    folder or a directory (the naming depends on the Operating
+    System). They are represented by the 
+    <xref linkend="nfo:Folder" /> class. The containment relation can be
+    expressed with the 
+    <xref linkend="nfo:belongsToContainer" /> property. Note that a
+    Folder is an interpretation. It may be applied to a 
+    <xref linkend="nfo:FileDataObject" /> (representing a folder on a
+    disk), but it can also be applied to an 
+    <xref linkend="nfo:ArchiveItem" /> (representing a folder inside an
+    archive).</para>
+    <para>Compressed Files are expressed with an Archive class. It
+    is also an interpretation that may be applied to any piece of
+    data. An important thing to note is that Nepomuk strives for
+    data integration. It shouldn't make much difference if a file
+    is within a normal folder or within an archive. That's why no
+    special case is made for the 
+    <xref linkend="nfo:fileUrl" /> property for files in compressed
+    archives. In both cases a file should be accessible with a URL.
+    In case of stand-alone files this is simple. Unfortunately
+    there are no standards defining the way to construct URL's for
+    files inside compressed archives. We encourage applications to
+    use conventions established by the 
+    <ulink url="http://jakarta.apache.org/commons/vfs/filesystems.html">
+    Apache Virtual File System project.</ulink>(FIXME: update to
+    the new way of constructing URIs) For cases when no URL can be
+    constructed for a file (e.g. a picture inside an archive
+    attached to an event in an outlook calendar) the entire
+    containment tree needs to be examined to find ways for
+    accessing a file.</para>
+  </section>
+  <section xmlns="http://docbook.org/ns/docbook" id="nfo:sec-remote-resources">
+  <title>Remote Resources</title>
+  <para>NFO includes basic vocabulary to describe remote resources.
+  To this end basically two classes have been introduced.
+  <xref linkend="nfo:RemoteDataObject" /> as a sub-class to <xref linkend="nfo:FileDataObject" />
+  described files on a remote file system which is directly accessible. This includes
+  remote file systems such as <emphasis>ftp</emphasis>, <emphasis>webdav</emphasis> or the like.
+  <xref linkend="nfo:WebDataObject" /> describes information resources of which representations
+  (files, streams) can be retrieved through a web server. They may be generated at retrieval time.
+  Examples are pages served by <emphasis>PHP</emphasis> or <emphasis>AJAX</emphasis> or mp3 streams,
+  typically retrieved through the <emphasis>http</emphasis> or <emphasis>https</emphasis> protocol.
+  For relating a remote resource to its URL the <xref linkend="nie:url" />
+  property can just be set to an <emphasis>http://</emphasis> or <emphasis>ftp://</emphasis> address.</para>
+</section>

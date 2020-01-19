@@ -1,0 +1,44 @@
+<section id="nuao:sec-ontology-visualization" xmlns="http://docbook.org/ns/docbook">
+	<title>Ontology Visualization</title>
+	
+	
+	<figure id="nuao:fig-nuao-ontology-visualization">
+	<ulink url="nuao-ontology-visualization.png">
+		<mediaobject>
+			<imageobject role="html">
+				<imagedata fileref="nuao-ontology-visualization.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+		</ulink>
+	</figure>
+	
+	
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="nuao:sec-basic-usage">
+    <title>Basic Usage</title>
+    <para>NUAO provides a hierarchy of event classes all derived from <xref linkend="nuao:Event"/>.
+        They were designed with usage events triggered by the user in mind.</para>
+    <para>If looking at the example of a file being opened NUAO models one main event which stretches
+        from the time the file is opened to the time it is closed. This is described via <xref linkend="nuao:UsageEvent"/>
+        and the properties <xref linkend="nuao:start"/> and <xref linkend="nuao:end"/>. During the time span of
+        this event the file can be in the focus of the user or not. This is modelled via <xref linkend="nuao:FocusEvent"/>
+        instances that describe when a file was in focus. Since users will typically switch the focus between
+        applications and resources very often storing all focus events might result in a very high number of events
+        that are hard to handle. For this purpose NUAO provides <xref linkend="nuao:totalFocusDuration"/> which
+        can be used to accumulate the total amount of time the resource was in focus during a
+        <xref linkend="nuao:UsageEvent"/>.</para>
+    <para>Since the action of modifying a resource is a very foggy concept and hard to fit into an event with
+        start and end time it was decided to instead only store a timestamp for each modification of the resource.
+        This is described via <xref linkend="nie:modified"/> and <xref linkend="nie:contentModified"/>. For file
+        modifications one would typically use <xref linkend="nie:modified"/>.</para>
+    <para>
+        <mediaobject><imageobject>
+          <imagedata fileref="nuao-usage-event.png" />
+        </imageobject></mediaobject>
+    </para>
+    <para>The diagram above shows one main <xref linkend="nuao:UsageEvent"/> which contains three focus events. (The term <emphasis>contains</emphasis>
+    is only used with respect to the visualization. In fact the <xref linkend="nuao:FocusEvent"/> instances are only related to the
+    <xref linkend="nuao:UsageEvent"/> via their start and end time.) In addition the file was saved three times, twice in the first
+    <xref linkend="nuao:FocusEvent"/> and once in the third.</para>
+</section>

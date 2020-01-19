@@ -1,0 +1,16 @@
+How the Ontology documentation works:
+
+A script generates references for all ontologies. Each ontology entity has
+an id which matches its abbreviated URI (Example: nao:prefLabel). Thus, in
+order to link to any ontology entity (property or class) just use the xref
+or the link tag with the appropriate linkend (link allows to specify a 
+custom text which xref uses the title from the linked element).
+
+Author information goes into the <onto>-authors.docbook file.
+
+All other documentation goes into the <onto>-main.docbook file which should
+contain sections and optional appendixes.
+Please use <onto>:sec-<topic> as the id for a section.
+
+Each ontology gets its own chapter which has as an id the namespace abbreviation
+(Example: <chapter id="nfo">).

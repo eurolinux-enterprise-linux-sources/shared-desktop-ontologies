@@ -1,0 +1,38 @@
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix nco:      <http://www.semanticdesktop.org/ontologies/2007/03/22/nco#> .
+@prefix : <http://uwe.de/examplens#> .
+
+
+:UweContact a nco:Contact;
+	nco:nameGiven "Uwe" ;
+	nco:nameFamily "Schmidt" ;
+	nco:hasPostalAddress [
+		a nco:PostalAddress ;
+ 		nco:country "Germany" ;
+		nco:region "Rheinland-Pfalz" ;
+		nco:locality "Kaiserslautern" ;
+		nco:postalcode "67663" ;
+		nco:streetAddress "Trippstadter Strasse 122"
+	] ;
+	nco:hasEmailAddress [
+		a nco:EmailAddress ;
+		nco:emailAddress "uwe@schmidt.de" ;
+		nco:contactMediumComment "Private Email"
+	] ;
+	nco:hasAffiliation [
+		a nco:Affiliation ;
+		nco:role "Software Developer" ;
+		nco:title "Senior Software Developer" ;
+		nco:org [
+			a nco:OrganizationContact ;
+			nco:fullname "Deutsches Forschungszentrum fuer Kuenstliche Intelligenz" 
+		] ;
+		nco:hasEmailAddress [
+			a nco:EmailAddress ;
+			nco:emailAddress "schmidt@dfki.de" ;
+			nco:contactMediumComment "Work email, only for business mail"
+		]
+	] .
+
+

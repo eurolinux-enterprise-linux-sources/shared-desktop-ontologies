@@ -1,0 +1,44 @@
+<section id="nexif:sec-ontology-visualization" xmlns="http://docbook.org/ns/docbook">
+	<title>Ontology Visualization</title>
+	
+	
+	<figure id="nexif:fig-nexif-ontology-visualization">
+	<ulink url="nexif-ontology-visualization.png">
+		<mediaobject>
+			<imageobject role="html">
+				<imagedata fileref="nexif-ontology-visualization.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</figure>
+	
+	
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="nexif:sec-introduction">
+  <title>Introduction</title>
+  <para>Exchangeable Image Format (EXIF) is a specification of image metadata vocabulary published by the Japan Electronics and Information Technology Industries Association <xref linkend="nexif:EXIFSPEC"/>. It has gained wide acceptance within the digital photography community. Most of today's digital cameras annotate the pictures with EXIF annotations.</para>
+  <para>An Exif description is to a large extent a set of name/value pairs. Exif descriptions have little structural information, apart from simple part-of relationships. Therefore adapting it to RDF is quite straightforward. This has been expertly done by Masahide Kanzaki <xref linkend="nexif:EXIFRDF"/>. His ontology meticulously recreates all properties defined in the specification document as rdf properties. They don't have their domains and ranges specified though. Therefore, during the adaptation of Kanzaki ontology to the Nepomuk Representational Language the domains and ranges have been added.</para>
+  <para>The Nepomuk Exif Ontology (NEXIF) has been linked with two other ontologies. The first link allows for easy annotation of image files with exif properties. It has been realized with the <xref linkend="nexif:Photo"/> class, which is a subclass of <xref linkend="nfo:Image"/>.</para>
+</section>
+
+
+<section xmlns="http://docbook.org/ns/docbook" id="nexif:appendix-references">
+  <title>References</title>
+  <variablelist>
+    <varlistentry>
+      <term id="nexif:EXIFSPEC">[EXIFSPEC]</term>
+      <listitem>
+        <para>
+          <ulink url="http://exif.org/Exif2-2.PDF">Exchangeable Image Format for digital still cameras: Exif Version 2.2.</ulink>, JEITA Technical Standardization Committee on AV &amp; IT Storage Systems and Equipment. Standard of Japan Electronics and Information Technology Industries Association: JEITA CP-3451. Japan, April 2002. http://exif.org/Exif2-2.PDF</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term id="nexif:EXIFRDF">[EXIFRDF]</term>
+        <listitem>
+          <para>
+            <ulink url="http://www.kanzaki.com/ns/exif">Exif data description vocabulary</ulink>, Masahide Kanzaki http://www.kanzaki.com/ns/exif</para>
+        </listitem>
+    </varlistentry>
+  </variablelist>
+</section>

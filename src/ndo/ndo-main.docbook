@@ -1,0 +1,35 @@
+<section id="ndo:sec-ontology-visualization" xmlns="http://docbook.org/ns/docbook">
+	<title>Ontology Visualization</title>
+	
+	
+	<figure id="ndo:fig-ndo-ontology-visualization">
+	<ulink url="ndo-ontology-visualization.png">
+		<mediaobject>
+			<imageobject role="html">
+				<imagedata fileref="ndo-ontology-visualization.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</figure>
+	
+	
+</section>
+
+<section xmlns="http://docbook.org/ns/docbook" id="ndo:sec-introduction">
+  <title>Introduction</title>
+  <para>The Nepomuk Download Ontology provides classes and properties to describe file downloads.</para>
+</section>
+<section id="ndo:sec-file-downloads" xmlns="http://docbook.org/ns/docbook">
+    <title>File Downloads</title>
+    <para>A typical use case for NDO is file downloads. The resources involved in a file download are typically
+        the source <xref linkend="nie:DataObject"/>, the local <xref linkend="nfo:FileDataObject"/>, and optionally
+        the referring web page. These resoures are all linked to a <xref linkend="ndo:DownloadEvent"/> as shown in
+        the figure below.
+    </para>
+    <para>
+        <mediaobject>
+          <imageobject><imagedata fileref="ndo-file-download.png" /></imageobject>
+          <caption>A file download event including referrer web page</caption>
+        </mediaobject>
+    </para>
+</section>

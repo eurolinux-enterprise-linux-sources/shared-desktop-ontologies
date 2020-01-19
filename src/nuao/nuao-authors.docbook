@@ -1,0 +1,27 @@
+    <authorgroup xmlns="http://docbook.org/ns/docbook"
+                 xmlns:xlink="http://www.w3.org/1999/xlink">
+      <author>
+        <personname>
+          <firstname>Evgeny</firstname>
+          <surname>Egorochkin</surname>
+        </personname>
+    <affiliation>
+      <org>
+        <orgname><link xlink:href="http://www.kde.org/">KDE</link></orgname>
+      </org>
+    </affiliation>
+        <email>phreedom.stdin@gmail.com</email>
+      </author>
+      <othercredit>
+    <personname>
+      <firstname>Sebastian</firstname>
+      <surname>Trueg</surname>
+    </personname>
+    <affiliation>
+      <org>
+          <orgname><link xlink:href="http://www.mandriva.com/">Mandriva</link></orgname>
+      </org>
+    </affiliation>
+    <email>trueg@kde.org</email>
+      </othercredit>
+    </authorgroup>

@@ -1,0 +1,9 @@
+    <authorgroup xmlns="http://docbook.org/ns/docbook">
+      <author><personname><firstname>Antoni</firstname><surname>Mylka</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>antoni.mylka@dfki.de</email></author>
+      <author><personname><firstname>Leo</firstname><surname>Sauermann</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>leo.sauermann@dfki.de</email></author>
+      <author><personname><firstname>Michael</firstname><surname>Sintek</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>michael.sintek@dfki.de</email></author>
+      <author><personname><firstname>Ludger</firstname><surname>van Elst</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>elst@dfki.uni-kl.de</email></author>
+    <editor><personname><firstname>Antoni</firstname><surname>Mylka</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>antoni.mylka@dfki.de</email></editor>
+    <othercredit><personname><firstname>Evgeny</firstname><surname>Egorochkin</surname></personname><affiliation><org><orgname>KDE</orgname></org></affiliation><email>phreedom.stdin@gmail.com</email></othercredit>
+    <othercredit><personname><firstname>Christiaan</firstname><surname>Fluit</surname></personname><affiliation><org><orgname>Aduna</orgname></org></affiliation><email>christiaan.fluit@aduna-software.com</email></othercredit>
+    </authorgroup>

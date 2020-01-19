@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<article xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         version="5.0">
+<title>Nepomuk Ontologies</title>
+
+   <preface id="sdo">
+       <title>The Shared Desktop Ontologies</title>
+<para>The vision of the Social Semantic Desktop defines a user’s personal
+information environment as a source and end-point of the Semantic Web:
+Knowledge workers comprehensively express their information and data with
+respect to their own conceptualizations. Semantic Web languages and protocols
+are used to formalize these conceptualizations and for coordinating local and
+global information access. The Resource Description Framework
+<link xlink:href="http://www.w3.org/RDF/">RDF</link> serves as a common data
+representation format. We identified several additional requirements for
+high-level knowledge representation on the social semantic desktop. With a
+particular focus on addressing certain limitations of RDF, we engineered a novel
+representational language akin to RDF and the Web Ontology Language
+<link xlink:href="http://www.w3.org/TR/owl-features/">OWL</link>, plus a number
+of other high-level ontologies. Together, they provide a means to build the
+semantic bridges necessary for data exchange and application integration on
+distributed social semantic desktops. Although initially designed to fulfill
+requirements for the <link xlink:href="http://nepomuk.semanticdesktop.org/">
+NEPOMUK</link> project, these ontologies are useful for the semantic web
+community in general.</para>
+
+   <section>
+   <title>Ontology Documentation</title>
+   <subtitle>Version @SHAREDDESKTOPONTOLOGIES_VERSION@</subtitle>
+   <para>The ontologies described in this document are developed as an open-source project
+       called <link xlink:href="http://www.sourceforge.net/projects/oscaf"><emphasis>Shared-Desktop-Ontologies (SDO)</emphasis></link>.
+           The development process is centered around the <link xlink:href="https://sourceforge.net/apps/trac/oscaf/">SDO Trac repository</link>
+           which is <emphasis>open to contributions from everyone</emphasis>. Additions, changes, fixes, and in general all contributions to the ontologies 
+           should go the way of a ticket in that system (a better alternative is very welcome).
+           </para>
+        <xi:include href="ontotoc.docbook" />
+   </section>
+</preface>
+
+<xi:include href="classindex.docbook" />
+<xi:include href="propertyindex.docbook" />
+
+<xi:include href="nrl.docbook" />
+<xi:include href="nao.docbook" />
+<xi:include href="nie.docbook" />
+<xi:include href="nfo.docbook" />
+<xi:include href="ncal.docbook" />
+<xi:include href="nco.docbook" />
+<xi:include href="nmo.docbook" />
+<xi:include href="nexif.docbook" />
+<xi:include href="nmm.docbook" />
+<xi:include href="ndo.docbook" />
+<xi:include href="nso.docbook" />
+<xi:include href="nuao.docbook" />
+<xi:include href="pimo.docbook" />
+<xi:include href="tmo.docbook" />
+
+</article>

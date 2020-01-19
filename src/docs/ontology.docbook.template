@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter [
+<!ENTITY authors SYSTEM "%ABBREV%-authors.docbook">
+<!ENTITY overview SYSTEM "%ABBREV%-overview.docbook">
+<!ENTITY main SYSTEM "%ABBREV%-main.docbook">
+<!ENTITY reference SYSTEM "%ABBREV%-reference.docbook">
+]>
+<chapter id="%ABBREV%"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xi="http://www.w3.org/2001/XInclude">
+<info>
+<title>%TITLE%</title>
+<subtitle>Namespace: %NAMESPACE% (Version @SHAREDDESKTOPONTOLOGIES_VERSION@)</subtitle>
+&authors;
+<abstract>%ABSTRACT%</abstract>
+</info>
+&overview;
+&main;
+&reference;
+</chapter>

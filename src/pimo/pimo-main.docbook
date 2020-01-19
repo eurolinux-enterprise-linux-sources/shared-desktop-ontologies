@@ -1,0 +1,26 @@
+<section id="pimo:sec-ontology-visualization" xmlns="http://docbook.org/ns/docbook">
+	<title>Ontology Visualization</title>
+	
+	
+	<figure id="pimo:fig-pimo-ontology-visualization">
+	<ulink url="pimo-ontology-visualization.png">
+		<mediaobject>
+			<imageobject role="html">
+				<imagedata fileref="pimo-ontology-visualization.png" scale="85"/>
+			</imageobject>
+		</mediaobject>
+	</ulink>
+	</figure>
+	
+	
+</section>
+
+  <section xmlns="http://docbook.org/ns/docbook" id="pimo:sec-recommendation">
+    <title>PIMO Recommendation Document</title>
+    <para>The rest of the PIMO Recommendation is published as 
+    <ulink url="http://www.semanticdesktop.org/ontologies/2007/11/01/pimo/v1.1/pimo_v1.1.pdf">
+    PDF document</ulink>. Please refer to this PDF document, or the
+    latest 
+    <ulink url="http://dev.nepomuk.semanticdesktop.org/repos/trunk/ontologies/pimo/latex/pimo.tex">
+    LaTex sources</ulink>of the PDF document.</para>
+  </section>

@@ -1,0 +1,10 @@
+    <authorgroup xmlns="http://docbook.org/ns/docbook">
+      <author><personname><firstname>Michael</firstname><surname>Sintek</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>michael.sintek@dfki.de</email></author>
+      <author><personname><firstname>Ludger</firstname><surname>van Elst</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>elst@dfki.uni-kl.de</email></author>
+      <author><personname><firstname>Simon</firstname><surname>Scerri</surname></personname><affiliation><org><orgname>DERI/NUIG</orgname></org></affiliation><email>simon.scerri@deri.org</email></author>
+      <author><personname><firstname>Siegfried</firstname><surname>Handschuh</surname></personname><affiliation><org><orgname>DERI/NUIG</orgname></org></affiliation><email>siegfried.handschuh@deri.org</email></author>      
+    <editor><personname><firstname>Simon</firstname><surname>Scerri</surname></personname><affiliation><org><orgname>DERI/NUIG</orgname></org></affiliation><email>simon.scerri@deri.org</email></editor>
+    <othercredit><personname><firstname>Julien</firstname><surname>Gaugaz</surname></personname><affiliation><org><orgname>L3S</orgname></org></affiliation><email>gaugaz@l3s.de </email></othercredit>
+    <othercredit><personname><firstname>Max</firstname><surname>Völkel</surname></personname><affiliation><org><orgname>FZI</orgname></org></affiliation><email>voelkel@fzi.de</email></othercredit>
+    <othercredit><personname><firstname>Leo</firstname><surname>Sauermann</surname></personname><affiliation><org><orgname>DFKI</orgname></org></affiliation><email>leo.sauermann@dfki.de</email></othercredit>
+    </authorgroup>
