@@ -1,6 +1,6 @@
 Name:           shared-desktop-ontologies
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Shared ontologies needed for semantic environments
 
 Group:          User Interface/Desktops
@@ -90,6 +90,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.11.0-2
+- Mass rebuild 2013-12-27
+
 * Fri Jun 14 2013 Rex Dieter <rdieter@fedoraproject.org> 0.11.0-1
 - 0.11.0
 
